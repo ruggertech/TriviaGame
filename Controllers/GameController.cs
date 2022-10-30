@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using DefaultNamespace;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -37,11 +36,12 @@ public class GameController : ControllerBase
 
     [HttpGet]
     [Route("/question")]
-    public QuestionResponse GetQuestion(QuestionRequest qr)
+    public QuestionResponse GetQuestion(string Username, string GameId)
     {
-        // use resolver to determine the state of the question
-        // if it's unresolved, return a different question
-        return new QuestionResponse();
+        var game = m_gameRepository.GetGame(GameId);
+        var question = game.Questions.Find(q => q.State != QuestionState.Unresolved);
+        var resp =  new QuestionResponse(question.Text, question.PossibleAnswers);
+        return resp;
     }
 
     [HttpPost]
