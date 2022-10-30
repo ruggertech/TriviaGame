@@ -2,8 +2,8 @@ namespace TriviaGame.entities
 {
     public enum QuestionState
     {
-        Resolved,
-        Pending,
-        Unresolved
+        Pending = 0,
+        Resolved = 1,
+        Unresolved = 2
     }
 }

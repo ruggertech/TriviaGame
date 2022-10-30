@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TriviaGame.Repositories;
 
 namespace TriviaGame
 {
@@ -18,6 +21,8 @@ namespace TriviaGame
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(QuestionBucket.Instance());
+            services.AddSingleton<IGameRepository, GameRepository>();
             services.AddControllers();
         }
 
@@ -41,10 +46,7 @@ namespace TriviaGame
                     .AllowAnyHeader();
             });
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

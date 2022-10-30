@@ -1,65 +1,86 @@
-﻿using DefaultNamespace;
+﻿using System.Collections.Generic;
+using System.Linq;
+using DefaultNamespace;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using TriviaGame.Dtos.Converters;
+using TriviaGame.entities;
 using TriviaGame.entities.request;
 using TriviaGame.entities.response;
+using TriviaGame.Repositories;
 
-namespace TriviaGame.Controllers
+namespace TriviaGame.Controllers;
+
+[ApiController]
+[Route("")]
+public class GameController : ControllerBase
 {
-    [ApiController]
-    [Route("")]
-    public class GameController : ControllerBase
+    private readonly ILogger<GameController> _logger;
+    private readonly IGameRepository m_gameRepository;
+    private readonly IQuestionBucket m_questionBucket;
+
+    public GameController(ILogger<GameController> logger, IGameRepository mGameRepository, IQuestionBucket qb)
     {
-        private readonly ILogger<GameController> _logger;
+        _logger = logger;
+        m_gameRepository = mGameRepository;
+        m_questionBucket = qb;
+    }
 
-        public GameController(ILogger<GameController> logger)
-        {
-            _logger = logger;
-        }
+    [HttpGet]
+    [Route("/ping")]
+    public string GetPong()
+    {
+        // use resolver to determine the state of the question
+        // if it's unresolved, return a different question
+        return "Pong ";
+    }
 
-        [HttpGet]
-        [Route("/ping")]
-        public string GetPong()
-        {
-            // use resolver to determine the state of the question
-            // if it's unresolved, return a different question
-            return "Pong";
-        }
+    [HttpGet]
+    [Route("/question")]
+    public QuestionResponse GetQuestion(QuestionRequest qr)
+    {
+        // use resolver to determine the state of the question
+        // if it's unresolved, return a different question
+        return new QuestionResponse();
+    }
+
+    [HttpPost]
+    [Route("/question/answer")]
+    public AnswerResponse PostAnswer(AnswerRequest ar)
+    {
+        // when posting a new answer it is time to determine the new state of the question
+        // use resolver change it's state
+        return new AnswerResponse();
+    }
+
+    [HttpGet]
+    [Route("/leaderboard")]
+    public LeaderboardResponse GetLeaderboard(LeaderboardRequest ar)
+    {
+        // when posting a new answer it is time to determine the new state of the question
+        // use resolver change it's state
+        return new LeaderboardResponse();
+    }
+
+    [HttpPost]
+    [Route("/game")]
+    public GameResponse CreateGame(GameCreateRequest ar)
+    {
+        // when posting a new answer it is time to determine the new state of the question
+        // use resolver change it's state
         
-        [HttpGet]
-        [Route("/question")]
-        public QuestionResponse GetQuestion(QuestionRequest qr)
-        {
-            // use resolver to determine the state of the question
-            // if it's unresolved, return a different question
-            return new QuestionResponse();
-        }
-        
-        [HttpPost]
-        [Route("/question/answer")]
-        public AnswerResponse PostAnswer(AnswerRequest ar)
-        {
-            // when posting a new answer it is time to determine the new state of the question
-            // use resolver change it's state
-            return new AnswerResponse();
-        }
-        
-        [HttpGet]
-        [Route("/leaderboard")]
-        public LeaderboardResponse GetLeaderboard(LeaderboardRequest ar)
-        {
-            // when posting a new answer it is time to determine the new state of the question
-            // use resolver change it's state
-            return new LeaderboardResponse();
-        }
-        
-        [HttpPost]
-        [Route("/game")]
-        public GameCreateResponse CreateGame(GameCreateRequest ar)
-        {
-            // when posting a new answer it is time to determine the new state of the question
-            // use resolver change it's state
-            return new GameCreateResponse();
-        }
+        // pull questions by their question id
+        var qList = ar.QuestionIds.Select(questionId => m_questionBucket.GetQuestion(questionId)).ToList();
+        var newGame = new Game(ar.PointsPerQuestion, ar.PlayerUserNames, qList);
+        var gameId = m_gameRepository.AddGame(newGame);
+        return new GameResponse(gameId);
+    }
+
+    [HttpGet]
+    [Route("/game")]
+    public GameResponse GetGame(string Id)
+    {
+        var game = m_gameRepository.GetGame(Id);
+        return game.ToDto();
     }
 }

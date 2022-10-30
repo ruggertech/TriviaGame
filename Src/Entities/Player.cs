@@ -6,11 +6,16 @@ namespace TriviaGame.entities
     {
         public Player(Player p)
         {
-            Id = p.Id;
+            Username = p.Username;
             AwardedPoints = p.AwardedPoints;
         }
 
-        public int Id { get; set; }
+        public Player(string username)
+        {
+            Username = username;
+        }
+
+        public string Username { get; set; }
         public int AwardedPoints { get; set; }
     }
 }
