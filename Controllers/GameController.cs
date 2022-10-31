@@ -39,7 +39,9 @@ public class GameController : ControllerBase
     public QuestionResponse GetQuestion(string Username, string GameId)
     {
         var game = m_gameRepository.GetGame(GameId);
-        var question = game.Questions.Find(q => q.State != QuestionState.Unresolved);
+        // a user will not get unresolved or already asked questions
+        var question = game.Questions
+            .Find(q => q.State != QuestionState.Unresolved && !q.Votes.ContainsKey(Username));
         var resp =  new QuestionResponse(question.Id, question.Text, question.PossibleAnswers);
         return resp;
     }

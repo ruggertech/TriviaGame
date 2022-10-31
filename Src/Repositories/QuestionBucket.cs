@@ -51,6 +51,7 @@ public sealed class QuestionBucket : IQuestionBucket
 
     public Question GetQuestion(int Id)
     {
+        // a user will not get the same question again if he has already answered it
         return m_questions.Find(q => q.Id == Id);
     }
 

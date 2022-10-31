@@ -1,5 +1,8 @@
+using System.Text.Json.Serialization;
+
 namespace TriviaGame.entities
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum QuestionState
     {
         Pending = 0,
