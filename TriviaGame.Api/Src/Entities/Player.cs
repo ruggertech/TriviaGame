@@ -1,6 +1,6 @@
 using System;
 
-namespace TriviaGame.entities
+namespace TriviaGame.Api.entities
 {
     public class Player
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace TriviaGame.entities
+namespace TriviaGame.Api.entities
 {
     public class Leaderboard
     {

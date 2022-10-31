@@ -1,7 +1,7 @@
 using System.Linq;
-using TriviaGame.entities;
+using TriviaGame.Api.entities;
 
-namespace TriviaGame;
+namespace TriviaGame.Api;
 
 public class Resolver : IResolver
 {

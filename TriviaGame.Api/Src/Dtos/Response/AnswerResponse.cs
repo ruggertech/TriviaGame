@@ -1,4 +1,4 @@
-namespace TriviaGame.entities.response
+namespace TriviaGame.Api.entities.response
 {
     public class AnswerResponse
     {

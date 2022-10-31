@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace TriviaGame.Utils;
+namespace TriviaGame.Api.Utils;
 
 public static class ListExtension
 {

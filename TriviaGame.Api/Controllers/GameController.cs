@@ -2,13 +2,13 @@
 using DefaultNamespace;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using TriviaGame.Dtos.Converters;
-using TriviaGame.entities;
-using TriviaGame.entities.request;
-using TriviaGame.entities.response;
-using TriviaGame.Repositories;
+using TriviaGame.Api.Dtos.Converters;
+using TriviaGame.Api.entities;
+using TriviaGame.Api.entities.request;
+using TriviaGame.Api.entities.response;
+using TriviaGame.Api.Repositories;
 
-namespace TriviaGame.Controllers;
+namespace TriviaGame.Api.Controllers;
 
 [ApiController]
 [Route("")]

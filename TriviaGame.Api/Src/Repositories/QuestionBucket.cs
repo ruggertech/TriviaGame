@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.WebUtilities;
-using TriviaGame.entities;
-using TriviaGame.Utils;
+using TriviaGame.Api.entities;
+using TriviaGame.Api.Utils;
 
 
-namespace TriviaGame.Repositories;
+namespace TriviaGame.Api.Repositories;
 
 public sealed class QuestionBucket : IQuestionBucket
 {

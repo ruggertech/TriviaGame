@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace TriviaGame
+namespace TriviaGame.Api
 {
     public class Program
     {

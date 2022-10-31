@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace TriviaGame.Dtos.Response;
+namespace TriviaGame.Api.Dtos.Response;
 
 public class OpentdbResponse
 {

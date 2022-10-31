@@ -1,6 +1,6 @@
-using TriviaGame.entities;
+using TriviaGame.Api.entities;
 
-namespace TriviaGame;
+namespace TriviaGame.Api;
 
 public interface IResolver
 {

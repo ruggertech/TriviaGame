@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using TriviaGame.Utils;
+using TriviaGame.Api.Utils;
 using Username = System.String;
 using AnswerId = System.Int32;
 
-namespace TriviaGame.entities
+namespace TriviaGame.Api.entities
 {
     public class Question
     {

@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace TriviaGame.entities
+namespace TriviaGame.Api.entities
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum QuestionState

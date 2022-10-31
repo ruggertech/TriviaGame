@@ -5,9 +5,9 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TriviaGame.Repositories;
+using TriviaGame.Api.Repositories;
 
-namespace TriviaGame
+namespace TriviaGame.Api
 {
     public class Startup
     {

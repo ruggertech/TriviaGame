@@ -1,7 +1,7 @@
 using DefaultNamespace;
-using TriviaGame.entities;
+using TriviaGame.Api.entities;
 
-namespace TriviaGame.Dtos.Converters;
+namespace TriviaGame.Api.Dtos.Converters;
 
 public static class GameExtension
 {

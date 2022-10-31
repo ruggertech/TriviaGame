@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using TriviaGame.entities;
+using TriviaGame.Api.entities;
 
-namespace TriviaGame.Repositories;
+namespace TriviaGame.Api.Repositories;
 
 public class GameRepository : IGameRepository
 {

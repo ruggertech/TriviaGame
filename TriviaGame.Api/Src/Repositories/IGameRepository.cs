@@ -1,6 +1,6 @@
-using TriviaGame.entities;
+using TriviaGame.Api.entities;
 
-namespace TriviaGame.Repositories;
+namespace TriviaGame.Api.Repositories;
 
 public interface IGameRepository
 {

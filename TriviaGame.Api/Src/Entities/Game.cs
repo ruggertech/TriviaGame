@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TriviaGame.entities
+namespace TriviaGame.Api.entities
 {
     public class Game
     {

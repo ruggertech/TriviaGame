@@ -4,9 +4,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
-using TriviaGame.Dtos.Response;
+using TriviaGame.Api.Dtos.Response;
 
-namespace TriviaGame.Utils;
+namespace TriviaGame.Api.Utils;
 
 public class HttpUtils
 {
