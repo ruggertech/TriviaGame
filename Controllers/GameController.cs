@@ -40,7 +40,7 @@ public class GameController : ControllerBase
     {
         var game = m_gameRepository.GetGame(GameId);
         var question = game.Questions.Find(q => q.State != QuestionState.Unresolved);
-        var resp =  new QuestionResponse(question.Text, question.PossibleAnswers);
+        var resp =  new QuestionResponse(question.Id, question.Text, question.PossibleAnswers);
         return resp;
     }
 
@@ -48,9 +48,19 @@ public class GameController : ControllerBase
     [Route("/question/answer")]
     public AnswerResponse PostAnswer(AnswerRequest ar)
     {
-        // when posting a new answer it is time to determine the new state of the question
-        // use resolver change it's state
-        return new AnswerResponse();
+        var game = m_gameRepository.GetGame(ar.GameId);
+        var question = game.Questions.Find(q => q.Id == ar.QuestionId);
+        question.Vote(ar.Username, ar.AnswerId);
+        
+        // resolve question
+        IResolver resolver = new Resolver();
+        var questionState = resolver.Resolve(question, game);
+        
+        return new AnswerResponse
+        {
+            QuestionState = questionState,
+            PointsEarned = game.Players.Find(p => p.Username == ar.Username).AwardedPoints
+        };
     }
 
     [HttpGet]

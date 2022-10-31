@@ -14,7 +14,7 @@ namespace TriviaGame.entities
 
         public string Id { get; set; }
         public int PointsPerQuestion { get; set; }
-        private List<Player> Players { get; set; }
+        public List<Player> Players { get; set; }
         public List<Question> Questions { set; get; }
         public Leaderboard Leaderboard { get; set; }
     }
