@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DefaultNamespace;
 using Microsoft.AspNetCore.Mvc;
 using TriviaGame.Api.Dtos.Converters;
@@ -38,11 +39,9 @@ public class GameController : ControllerBase
     [Route("/question")]
     public QuestionResponse GetQuestion(string Username, string GameId)
     {
-        // (int questionId, string questionText, List<Answer> possibleAnswers) res =
-        //     m_gameManager.GetQuestion(GameId, Username);
-        // var resp = new QuestionResponse(res.questionId, res.questionText, res.possibleAnswers);
-        // return resp;
-        return null;
+        var res = m_gameManager.GetQuestion(GameId, Username);
+        var resp = new QuestionResponse(res.questionId, res.questionText, res.possibleAnswers);
+        return resp;
     }
 
     [HttpPost]
@@ -77,7 +76,7 @@ public class GameController : ControllerBase
     [Route("/game")]
     public GameResponse GetGame(string Id)
     {
-        var game = new Game(56, null, null);//m_gameRepository.GetGame(Id));
+        var game = new Game(56, null, null); //m_gameRepository.GetGame(Id));
         return game.ToDto();
     }
 }
