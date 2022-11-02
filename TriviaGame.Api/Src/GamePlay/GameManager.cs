@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using DefaultNamespace;
 using TriviaGame.Api.entities;
@@ -5,20 +6,21 @@ using TriviaGame.Api.Repositories;
 
 namespace TriviaGame.Api;
 
-public class GameManager
+public class GameManager : IGameManager
 {
-    private readonly IGameRepository m_gameRepository;
-    private readonly IQuestionBucket m_questionBucket;
+    private IGameRepository m_gameRepository;
+    private IQuestionBucket m_questionBucket;
 
-    public GameManager(IGameRepository mGameRepository, IQuestionBucket mQuestionBucket)
+    public GameManager(IGameRepository gameRepository, IQuestionBucket questionBucket)
     {
-        m_gameRepository = mGameRepository;
-        m_questionBucket = mQuestionBucket;
+        m_gameRepository = gameRepository;
+        m_questionBucket = questionBucket;
     }
-    public string CreateGame(GameCreateRequest ar)
+
+    public string CreateGame(List<string> playerUserNames, int pointsPerQuestion, List<int> questionIds)
     {
-        var qList = ar.QuestionIds.Select(questionId => m_questionBucket.GetQuestion(questionId)).ToList();
-        var newGame = new Game(ar.PointsPerQuestion, ar.PlayerUserNames, qList);
+        var qList = m_questionBucket.GetQuestions(questionIds);
+        var newGame = new Game(pointsPerQuestion, playerUserNames, qList);
         var gameId = m_gameRepository.AddGame(newGame);
         return gameId;
     }

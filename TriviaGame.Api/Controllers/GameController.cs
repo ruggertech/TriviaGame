@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using DefaultNamespace;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -15,23 +17,33 @@ namespace TriviaGame.Api.Controllers;
 public class GameController : ControllerBase
 {
     private readonly ILogger<GameController> _logger;
+    // TODO: gameRepo and questionsBucket should not be here at all, and removed from start up dep injection
+    // everything should be managed by the logic layer gameManager
     private readonly IGameRepository m_gameRepository;
     private readonly IQuestionBucket m_questionBucket;
+    private readonly IGameManager m_gameManager;
 
-    public GameController(ILogger<GameController> logger, IGameRepository mGameRepository, IQuestionBucket qb)
+    public GameController(ILogger<GameController> logger, IGameRepository mGameRepository, IQuestionBucket qb, IGameManager gameManager)
     {
         _logger = logger;
         m_gameRepository = mGameRepository;
         m_questionBucket = qb;
+        m_gameManager = gameManager;
     }
 
     [HttpGet]
-    [Route("/ping")]
-    public string GetPong()
+    [Route("/isAlive")]
+    public DateTime IsAlive()
     {
-        // use resolver to determine the state of the question
-        // if it's unresolved, return a different question
-        return "Pong ";
+        return DateTime.Now;
+    }
+    
+    [HttpPost]
+    [Route("/game")]
+    public GameResponse CreateGame(GameCreateRequest ar)
+    {
+        var gameId = m_gameManager.CreateGame(ar.PlayerUserNames, ar.PointsPerQuestion, ar.QuestionIds);
+        return new GameResponse(gameId);
     }
 
     [HttpGet]
@@ -72,20 +84,6 @@ public class GameController : ControllerBase
         // when posting a new answer it is time to determine the new state of the question
         // use resolver change it's state
         return new LeaderboardResponse();
-    }
-
-    [HttpPost]
-    [Route("/game")]
-    public GameResponse CreateGame(GameCreateRequest ar)
-    {
-        // when posting a new answer it is time to determine the new state of the question
-        // use resolver change it's state
-        
-        // pull questions by their question id
-        var qList = ar.QuestionIds.Select(questionId => m_questionBucket.GetQuestion(questionId)).ToList();
-        var newGame = new Game(ar.PointsPerQuestion, ar.PlayerUserNames, qList);
-        var gameId = m_gameRepository.AddGame(newGame);
-        return new GameResponse(gameId);
     }
 
     [HttpGet]
