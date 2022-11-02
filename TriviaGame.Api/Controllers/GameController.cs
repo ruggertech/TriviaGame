@@ -29,10 +29,10 @@ public class GameController : ControllerBase
 
     [HttpPost]
     [Route("/game")]
-    public GameResponse CreateGame(GameCreateRequest ar)
+    public GameCreatedResponse CreateGame(GameCreateRequest ar)
     {
-        var gameId = m_gameManager.CreateGame(ar.PlayerUserNames, ar.PointsPerQuestion, ar.QuestionIds);
-        return new GameResponse(gameId);
+        var game = m_gameManager.CreateGame(ar.PlayerUserNames, ar.PointsPerQuestion, ar.QuestionIds);
+        return game.ToGameCreatedDto();
     }
 
     [HttpGet]
@@ -48,18 +48,11 @@ public class GameController : ControllerBase
     [Route("/question/answer")]
     public AnswerResponse PostAnswer(AnswerRequest ar)
     {
-        var game = new Game(55, null, null); // m_gameRepository.GetGame(ar.GameId);
-        var question = game.Questions.Find(q => q.Id == ar.QuestionId);
-        question.Vote(ar.Username, ar.AnswerId);
-
-        // resolve question
-        IResolver resolver = new Resolver();
-        var questionState = resolver.Resolve(question, game);
-
+        var res = m_gameManager.PostAnswer(ar.GameId, ar.QuestionId, ar.Username, ar.AnswerId);
         return new AnswerResponse
         {
-            QuestionState = questionState,
-            PointsEarned = game.Players.Find(p => p.Username == ar.Username).AwardedPoints
+            QuestionState = res.questionState,
+            PointsEarned = res.awardedPoints
         };
     }
 
@@ -74,9 +67,9 @@ public class GameController : ControllerBase
 
     [HttpGet]
     [Route("/game")]
-    public GameResponse GetGame(string Id)
+    public GameResponse GetGame(string gameId)
     {
-        var game = new Game(56, null, null); //m_gameRepository.GetGame(Id));
-        return game.ToDto();
+        var game = m_gameManager.GetGame(gameId);
+        return game.ToGameDto();
     }
 }
