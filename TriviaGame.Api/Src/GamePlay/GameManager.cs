@@ -24,4 +24,12 @@ public class GameManager : IGameManager
         var gameId = m_gameRepository.AddGame(newGame);
         return gameId;
     }
+
+    public (int questionId, string questionText, List<Answer> possibleAnswers) GetQuestion(string gameId,
+        string username)
+    {
+        var game = m_gameRepository.GetGame(gameId);
+        var question = game.Questions.Find(q => q.State != QuestionState.Unresolved && !q.Votes.ContainsKey(username));
+        return (question.Id, question.Text, question.PossibleAnswers);
+    }
 }

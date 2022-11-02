@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using DefaultNamespace;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using TriviaGame.Api.Dtos.Converters;
 using TriviaGame.Api.entities;
 using TriviaGame.Api.entities.request;
 using TriviaGame.Api.entities.response;
-using TriviaGame.Api.Repositories;
 
 namespace TriviaGame.Api.Controllers;
 
@@ -16,18 +12,10 @@ namespace TriviaGame.Api.Controllers;
 [Route("")]
 public class GameController : ControllerBase
 {
-    private readonly ILogger<GameController> _logger;
-    // TODO: gameRepo and questionsBucket should not be here at all, and removed from start up dep injection
-    // everything should be managed by the logic layer gameManager
-    private readonly IGameRepository m_gameRepository;
-    private readonly IQuestionBucket m_questionBucket;
     private readonly IGameManager m_gameManager;
 
-    public GameController(ILogger<GameController> logger, IGameRepository mGameRepository, IQuestionBucket qb, IGameManager gameManager)
+    public GameController(IGameManager gameManager)
     {
-        _logger = logger;
-        m_gameRepository = mGameRepository;
-        m_questionBucket = qb;
         m_gameManager = gameManager;
     }
 
@@ -37,7 +25,7 @@ public class GameController : ControllerBase
     {
         return DateTime.Now;
     }
-    
+
     [HttpPost]
     [Route("/game")]
     public GameResponse CreateGame(GameCreateRequest ar)
@@ -50,26 +38,25 @@ public class GameController : ControllerBase
     [Route("/question")]
     public QuestionResponse GetQuestion(string Username, string GameId)
     {
-        var game = m_gameRepository.GetGame(GameId);
-        // a user will not get unresolved or already asked questions
-        var question = game.Questions
-            .Find(q => q.State != QuestionState.Unresolved && !q.Votes.ContainsKey(Username));
-        var resp =  new QuestionResponse(question.Id, question.Text, question.PossibleAnswers);
-        return resp;
+        // (int questionId, string questionText, List<Answer> possibleAnswers) res =
+        //     m_gameManager.GetQuestion(GameId, Username);
+        // var resp = new QuestionResponse(res.questionId, res.questionText, res.possibleAnswers);
+        // return resp;
+        return null;
     }
 
     [HttpPost]
     [Route("/question/answer")]
     public AnswerResponse PostAnswer(AnswerRequest ar)
     {
-        var game = m_gameRepository.GetGame(ar.GameId);
+        var game = new Game(55, null, null); // m_gameRepository.GetGame(ar.GameId);
         var question = game.Questions.Find(q => q.Id == ar.QuestionId);
         question.Vote(ar.Username, ar.AnswerId);
-        
+
         // resolve question
         IResolver resolver = new Resolver();
         var questionState = resolver.Resolve(question, game);
-        
+
         return new AnswerResponse
         {
             QuestionState = questionState,
@@ -90,7 +77,7 @@ public class GameController : ControllerBase
     [Route("/game")]
     public GameResponse GetGame(string Id)
     {
-        var game = m_gameRepository.GetGame(Id);
+        var game = new Game(56, null, null);//m_gameRepository.GetGame(Id));
         return game.ToDto();
     }
 }
