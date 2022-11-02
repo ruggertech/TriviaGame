@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using DefaultNamespace;
 using Microsoft.AspNetCore.Mvc;
 using TriviaGame.Api.Dtos.Converters;
-using TriviaGame.Api.entities;
 using TriviaGame.Api.entities.request;
 using TriviaGame.Api.entities.response;
 
@@ -32,7 +30,7 @@ public class GameController : ControllerBase
     public GameCreatedResponse CreateGame(GameCreateRequest ar)
     {
         var game = m_gameManager.CreateGame(ar.PlayerUserNames, ar.PointsPerQuestion, ar.QuestionIds);
-        return game.ToGameCreatedDto();
+        return game.ToGameCreatedResponse();
     }
 
     [HttpGet]
@@ -40,7 +38,7 @@ public class GameController : ControllerBase
     public QuestionResponse GetQuestion(string Username, string GameId)
     {
         var res = m_gameManager.GetQuestion(GameId, Username);
-        var resp = new QuestionResponse(res.questionId, res.questionText, res.possibleAnswers);
+        var resp = res.ToQuestionResponse();
         return resp;
     }
 
@@ -70,6 +68,6 @@ public class GameController : ControllerBase
     public GameResponse GetGame(string gameId)
     {
         var game = m_gameManager.GetGame(gameId);
-        return game.ToGameDto();
+        return game.ToGameResponse();
     }
 }

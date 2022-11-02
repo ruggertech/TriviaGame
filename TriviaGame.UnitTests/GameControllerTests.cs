@@ -51,7 +51,8 @@ public class GameControllerTests
 
     private GameResponse CreateGame()
     {
-        return new GameResponse("no id, should be implemented");
+        //return new GameResponse("no id, should be implemented");
+        return null;
         // // Arrange
         // m_gameRepositoryStub.Setup(repo => repo.AddGame(It.IsAny<Game>()))
         //     .Returns(Guid.NewGuid().ToString());
