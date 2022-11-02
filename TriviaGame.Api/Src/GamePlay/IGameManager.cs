@@ -12,4 +12,5 @@ public interface IGameManager
         int answerId);
 
     Game GetGame(string gameId);
+    Leaderboard GetLeaderBoard(string gameId);
 }

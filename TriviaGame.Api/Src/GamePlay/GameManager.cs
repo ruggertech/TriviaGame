@@ -48,4 +48,10 @@ public class GameManager : IGameManager
     {
         return m_gameRepository.GetGame(gameId);
     }
+
+    public Leaderboard GetLeaderBoard(string gameId)
+    {
+        // TODO: Implement this
+        return new Leaderboard();
+    }
 }

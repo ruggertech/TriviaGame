@@ -56,11 +56,10 @@ public class GameController : ControllerBase
 
     [HttpGet]
     [Route("/leaderboard")]
-    public LeaderboardResponse GetLeaderboard(LeaderboardRequest ar)
+    public LeaderboardResponse GetLeaderboard(string GameId)
     {
-        // when posting a new answer it is time to determine the new state of the question
-        // use resolver change it's state
-        return new LeaderboardResponse();
+        var res = m_gameManager.GetLeaderBoard(GameId);
+        return res.ToLeaderboardResponse();
     }
 
     [HttpGet]

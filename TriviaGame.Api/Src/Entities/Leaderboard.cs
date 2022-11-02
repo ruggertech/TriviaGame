@@ -7,6 +7,6 @@ namespace TriviaGame.Api.entities
         /// <summary>
         /// player ID to rank
         /// </summary>
-        public Dictionary<int, int> PlayerRank { get; set; }
+        public SortedDictionary<int, int> PlayerRank { get; set; }
     }
 }
