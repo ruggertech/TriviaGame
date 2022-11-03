@@ -20,8 +20,9 @@ public class Resolver : IResolver
             return q.State;
         }
 
-        // state is pending
-        if (q.Votes.Count > 10)
+        // if the question wasn't resolved with 11 users it will be marked unresolved.
+        // meaning, from the 12th user this applies
+        if (q.Votes.Count > 11)
         {
             q.State = QuestionState.Unresolved;
             return q.State;
@@ -34,16 +35,6 @@ public class Resolver : IResolver
             var ansVotes = new AnsVotes(grp.Key, grp.Count());
             groupedVotesByAnsId.Add(ansVotes);
         }
-
-        // var occurrences =
-        //     from vote in q.Votes.Values
-        //     group vote by vote
-        //     into ans
-        //     orderby ans descending
-        //     select new
-        //     {
-        //         ans.Key, Count = ans.Count()
-        //     };
 
         var sumOfAllVotes = groupedVotesByAnsId.Sum(kc => kc.NumVotes);
         groupedVotesByAnsId.Sort();
