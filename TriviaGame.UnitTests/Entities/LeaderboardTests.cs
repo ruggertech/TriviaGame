@@ -82,4 +82,19 @@ public class LeaderboardTests
         // Assert
         Assert.Equal(100, awardedPoints);
     }
+    
+    [Fact]
+    public void GetUsername_WithListOfPlayers_ReturnsTheirUsername()
+    {
+        // Arrange
+        var lb = new Leaderboard(m_playerUsernames);
+
+        // Act
+        var usernames = lb.GetUsernames();
+
+        // Assert
+        var expected = new List<string>(m_playerUsernames.ToArray());
+        expected.Sort();
+        Assert.Equal(expected, usernames);
+    }
 }
