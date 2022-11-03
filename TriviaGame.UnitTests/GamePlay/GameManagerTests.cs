@@ -124,6 +124,6 @@ public class GameManagerTests
             m_playerUsernames[0], 0);
 
         // Assert
-        Assert.Equal(game.PointsPerQuestion, actual.awardedPoints);
+        Assert.Equal(0, actual.awardedPoints);
     }
 }
