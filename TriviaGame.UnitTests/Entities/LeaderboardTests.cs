@@ -27,7 +27,7 @@ public class LeaderboardTests
     };
     
     [Fact]
-    public void AwardPoints_WithQuestionNotResolved_ReturnsNoAwardedPoints()
+    public void AwardPoints_WithListOfWinnder_ReturnsLeaderboardWinnerAtFront()
     {
         // Arrange
         var lb = new Leaderboard(m_playerUsernames);
@@ -45,9 +45,9 @@ public class LeaderboardTests
         };
         var thirds = new HashSet<string>
         {
-            m_playerUsernames[3],
-            m_playerUsernames[4],
-            m_playerUsernames[5],
+            m_playerUsernames[6],
+            m_playerUsernames[7],
+            m_playerUsernames[8],
         };
 
         // Act
@@ -56,6 +56,10 @@ public class LeaderboardTests
         lb.AwardPoints(thirds, 60);
 
         var board = lb.ToList();
-        Assert.Equal(board[0].AwardedPoints, 100);
+        
+        // Assert
+        Assert.Equal(100, board[0].AwardedPoints );
+        Assert.Equal(80, board[3].AwardedPoints);
+        Assert.Equal(60, board[6].AwardedPoints);
     }
 }
