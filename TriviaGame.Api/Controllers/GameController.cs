@@ -1,6 +1,7 @@
 ﻿using System;
 using DefaultNamespace;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using TriviaGame.Api.Dtos.Converters;
 using TriviaGame.Api.entities.request;
 using TriviaGame.Api.entities.response;
@@ -12,16 +13,19 @@ namespace TriviaGame.Api.Controllers;
 public class GameController : ControllerBase
 {
     private readonly IGameManager m_gameManager;
+    private readonly ILogger<GameController> m_logger;
 
-    public GameController(IGameManager gameManager)
+    public GameController(IGameManager gameManager, ILogger<GameController> logger)
     {
         m_gameManager = gameManager;
+        m_logger = logger;
     }
 
     [HttpGet]
     [Route("/isAlive")]
     public DateTime IsAlive()
     {
+        m_logger.LogInformation("App is alive {date}", DateTime.Now);
         return DateTime.Now;
     }
 

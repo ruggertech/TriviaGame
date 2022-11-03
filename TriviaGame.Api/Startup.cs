@@ -21,6 +21,7 @@ namespace TriviaGame.Api
         {
             var gameManager = new GameManager(new GameRepository(), new QuestionBucket(), new Resolver());
             services.AddSingleton<IGameManager>(gameManager);
+
             services.AddControllers();
         }
 
@@ -31,6 +32,8 @@ namespace TriviaGame.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            
 
             app.UseRouting();
 
