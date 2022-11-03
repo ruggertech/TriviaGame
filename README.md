@@ -1,6 +1,6 @@
 # Game Manager with Resolver – Home Assignment
 
-Need to build a spring boot web application that will allow users to create quiz games and play.
+Need to build a ASP.NET web application that will allow users to create quiz games and play.
 
 Each game has multiple users which are playing against each other. The goal is accumulating points by answering questions correctly. A user (player) can play in several games simultaneously.
 
@@ -18,10 +18,10 @@ The correct answer will be calculated based on the players answers.
 
 ## Goals:
 
-- Working Spring Boot web application
-- No bugs.
+- Working ASP.NET web application
+- No bugs :)
 - Expose APIs according to the application APIs section.
-    - **Expand pojos as you see fit**
+    - **Expand dtos as you see fit**
 - A user will not get the same question again if has already answered it
 
 # Terms:
@@ -56,7 +56,7 @@ Possible results (Question status):
 - Pending (Not determine yet, require more answers)
 - Unresolved (question can not be resolved)
 
-If question is unresolved, we don&#39;t award points and stop providing this question to players.
+If question is unresolved, we don't award points and stop providing this question to players.
 
 ## Implementation (majority vote) – _ **bonus part** _
 
@@ -64,7 +64,7 @@ The correct answer for a question will determine based on the players vote. If a
 
 For a question there should be a minimum of 6 players that answered the question in order to try and resolve the question.
 
-There should also be a limit for the max player we collect an answer. If the question wasn&#39;t resolved with 11 users, it will be marked as &quot;unresolved&quot;.
+There should also be a limit for the max player we collect an answer. If the question wasn't resolved with 11 users, it will be marked as "unresolved".
 
 # Application APIs:
 
