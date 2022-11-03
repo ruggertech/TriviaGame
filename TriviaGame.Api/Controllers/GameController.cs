@@ -46,7 +46,7 @@ public class GameController : ControllerBase
     [Route("/question/answer")]
     public AnswerResponse PostAnswer(AnswerRequest ar)
     {
-        var res = m_gameManager.PostAnswer(ar.GameId, ar.QuestionId, ar.Username, ar.AnswerId);
+        var res = m_gameManager.Answer(ar.GameId, ar.QuestionId, ar.Username, ar.AnswerId);
         return new AnswerResponse
         {
             QuestionState = res.questionState,

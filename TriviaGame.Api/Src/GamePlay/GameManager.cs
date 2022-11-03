@@ -31,7 +31,7 @@ public class GameManager : IGameManager
         return question;
     }
 
-    public (QuestionState questionState, int awardedPoints) PostAnswer(string gameId, int questionId, string username,
+    public (QuestionState questionState, int awardedPoints) Answer(string gameId, int questionId, string username,
         int answerId)
     {
         var game = m_gameRepository.GetGame(gameId);

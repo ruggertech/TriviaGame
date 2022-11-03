@@ -1,9 +1,6 @@
-using DefaultNamespace;
 using Microsoft.Extensions.Logging;
 using Moq;
 using TriviaGame.Api.Controllers;
-using TriviaGame.Api.entities;
-using TriviaGame.Api.entities.response;
 using TriviaGame.Api.Repositories;
 
 namespace TriviaGame.UnitTests;
@@ -40,45 +37,6 @@ public class GameControllerTests
     private Mock<ILogger<GameController>> m_loggerStub = new();
 
     [Fact]
-    public void CreateGame_WithNonExistentGame_ReturnsNewGameId()
-    {
-        var result = CreateGame();
-
-        // Assert
-        Assert.IsType<string>(result.Id);
-        Assert.NotEmpty(result.Id);
-    }
-
-    private GameResponse CreateGame()
-    {
-        //return new GameResponse("no id, should be implemented");
-        return null;
-        // // Arrange
-        // m_gameRepositoryStub.Setup(repo => repo.AddGame(It.IsAny<Game>()))
-        //     .Returns(Guid.NewGuid().ToString());
-        //
-        // for (int i = 1; i <= 10; i++)
-        // {
-        //     m_questionBucketStub.Setup(repo => repo.GetQuestion(i))
-        //         .Returns(new Question(i, "what is your " + i, m_answers));
-        // }
-        //
-        // var controller =
-        //     new GameController(m_loggerStub.Object, m_gameRepositoryStub.Object, m_questionBucketStub.Object);
-        //
-        // // Act
-        // var cr = new GameCreateRequest
-        // {
-        //     PointsPerQuestion = 12,
-        //     PlayerUserNames = m_playerUsernames,
-        //     QuestionIds = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }
-        // };
-        //
-        // var result = controller.CreateGame(cr);
-        // return result;
-    }
-
-    [Fact]
     public void GetQuestion_WithUserOutOfTheGame_ReturnsError()
     {
         // // Arrange
@@ -94,30 +52,5 @@ public class GameControllerTests
         //
         // var actual = controller.GetQuestion("bla", game.Id);
         // Assert.Equal(new QuestionResponse(1, "dfsf", new List<Answer>()), actual);
-    }
-
-    [Fact]
-    public void GetQuestion_WithUsernameFromGame_ReturnsQuestion()
-    {
-    }
-
-    [Fact]
-    public void Answer_WithLessThanSixUsers_ReturnsQuestionPending()
-    {
-    }
-
-    [Fact]
-    public void Answer_WithMoreThanElevenUsersOnPendingQuestion_ReturnsQuestionUnresolved()
-    {
-    }
-
-    [Fact]
-    public void Answer_WithEightUsersAnswersAreSplitFiftyPercent_ReturnsQuestionPending()
-    {
-    }
-
-    [Fact]
-    public void Answer_WithEightUsersWithMajorityVote_ReturnsQuestionResolvedAndCorrectAnswer()
-    {
     }
 }

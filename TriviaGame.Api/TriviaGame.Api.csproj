@@ -9,9 +9,7 @@
   <ItemGroup>
     <Folder Include="artifacts" />
     <Folder Include="build" />
-    <Folder Include="packages" />
     <Folder Include="src\GamePlay" />
-    <Folder Include="tests" />
   </ItemGroup>
 
 
