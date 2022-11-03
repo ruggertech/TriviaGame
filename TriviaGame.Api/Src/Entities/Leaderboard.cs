@@ -40,7 +40,7 @@ namespace TriviaGame.Api.entities
             return LeaderBoard.Select(p => p.Username).ToList();
         }
 
-        public List<Player> GetLeaderboard()
+        public List<Player> ToList()
         {
             return LeaderBoard.ToList();
         }

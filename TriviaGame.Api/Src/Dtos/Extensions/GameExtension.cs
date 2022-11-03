@@ -29,7 +29,7 @@ public static class GameExtension
     {
         var ranked = new List<RankedPlayer>();
         int i = 1;
-        foreach (var player in l.GetLeaderboard())
+        foreach (var player in l.ToList())
         {
             ranked.Add(new RankedPlayer(player.Username, i, player.AwardedPoints));
             i++;
