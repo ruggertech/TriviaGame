@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using TriviaGame.Api.entities;
 
@@ -25,37 +27,67 @@ public class Resolver : IResolver
             return q.State;
         }
 
-        //var g = q.Votes.Values.GroupBy( i => i );
-        var occurrences =
-            from vote in q.Votes.Values
-            group vote by vote
-            into grp
-            orderby grp descending
-            select new
-            {
-                grp.Key, Count = grp.Count()
-            };
-
-        var sumOfAllVotes = occurrences.Sum(kc => kc.Count);
-        var maxVote = occurrences.FirstOrDefault();
-        if (maxVote.Count / sumOfAllVotes > 0.75)
+        var groups = q.Votes.Values.GroupBy(ansId => ansId);
+        List<AnsVotes> groupedVotesByAnsId = new();
+        foreach (var grp in groups)
         {
-            var correctAnswer = maxVote.Key;
+            var ansVotes = new AnsVotes(grp.Key, grp.Count());
+            groupedVotesByAnsId.Add(ansVotes);
+        }
+
+        // var occurrences =
+        //     from vote in q.Votes.Values
+        //     group vote by vote
+        //     into ans
+        //     orderby ans descending
+        //     select new
+        //     {
+        //         ans.Key, Count = ans.Count()
+        //     };
+
+        foreach (var occurrence in groupedVotesByAnsId)
+        {
+            Console.WriteLine(occurrence.AnsId + " " + occurrence.NumVotes);
+        }
+
+        var sumOfAllVotes = groupedVotesByAnsId.Sum(kc => kc.NumVotes);
+        groupedVotesByAnsId.Sort();
+        var maxVote = groupedVotesByAnsId[0];
+        if (maxVote.NumVotes / sumOfAllVotes > 0.75)
+        {
+            var correctAnswer = maxVote.AnsId;
 
             // winners are those who voted for the correct answer
             var winnerUsernames = q.Votes
                 .Where(kc => kc.Value == correctAnswer)
                 .Select(kc => kc.Key)
                 .ToHashSet();
-            
-            
+
+
             g.Players.AwardPoints(winnerUsernames, g.PointsPerQuestion);
-            
+
             // resolve the question
             q.State = QuestionState.Resolved;
             return q.State;
         }
 
         return QuestionState.Pending;
+    }
+
+    private struct AnsVotes : IComparable<AnsVotes>
+    {
+        public AnsVotes(int ansId, int numVotes)
+        {
+            AnsId = ansId;
+            NumVotes = numVotes;
+        }
+
+        public int AnsId;
+        public int NumVotes;
+
+        public int CompareTo(AnsVotes other)
+        {
+            return -1 * (NumVotes - other.NumVotes);
+        }
     }
 }
