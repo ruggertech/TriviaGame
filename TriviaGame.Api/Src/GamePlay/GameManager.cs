@@ -8,11 +8,13 @@ public class GameManager : IGameManager
 {
     private IGameRepository m_gameRepository;
     private IQuestionBucket m_questionBucket;
+    private readonly IResolver m_resolver;
 
-    public GameManager(IGameRepository gameRepository, IQuestionBucket questionBucket)
+    public GameManager(IGameRepository gameRepository, IQuestionBucket questionBucket, IResolver resolver)
     {
         m_gameRepository = gameRepository;
         m_questionBucket = questionBucket;
+        m_resolver = resolver;
     }
 
     public Game CreateGame(List<string> playerUserNames, int pointsPerQuestion, List<int> questionIds)
@@ -38,8 +40,7 @@ public class GameManager : IGameManager
         question.Vote(username, answerId);
 
         // resolve question
-        IResolver resolver = new Resolver();
-        var questionState = resolver.Resolve(question, game);
+        var questionState = m_resolver.Resolve(question, game);
         var awardedPoints = game.Players.GetAwardedPoints(username);
             
         return (questionState, awardedPoints);

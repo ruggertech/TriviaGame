@@ -45,11 +45,6 @@ public class ResolverTests
         };
 
         var game = new Game(1, m_playerUsernames, qs);
-
-        // Act
-        // answer a question with users, and then resolve it
-        var totalAnswers = 11;
-        var percentageForCorrect = 0.3;
         var questionToAnswer = qs[0];
 
         // 6 votes, by different users
@@ -63,6 +58,8 @@ public class ResolverTests
             { m_playerUsernames[5], 3 }
         };
 
+        // Act
+        // answer a question with users, and then resolve it
         IResolver resolver = new Resolver();
         var actual = resolver.Resolve(qs[0], game);
 

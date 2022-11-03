@@ -19,7 +19,7 @@ namespace TriviaGame.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var gameManager = new GameManager(new GameRepository(), new QuestionBucket());
+            var gameManager = new GameManager(new GameRepository(), new QuestionBucket(), new Resolver());
             services.AddSingleton<IGameManager>(gameManager);
             services.AddControllers();
         }

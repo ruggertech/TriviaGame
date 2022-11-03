@@ -64,11 +64,11 @@ public class GameManagerTests
         };
 
         var game = new Game(1, m_playerUsernames, qs);
-        var gameManager = new GameManager(m_gameRepositoryStub.Object, m_questionBucketStub.Object);
+        var gameManager = new GameManager(m_gameRepositoryStub.Object, m_questionBucketStub.Object, new Resolver());
 
         m_gameRepositoryStub.Setup(repo => repo.GetGame(It.IsAny<string>()))
             .Returns(game);
-        
+
         // 6 votes, by different users
         qs[0].Votes = new Dictionary<string, int>
         {
@@ -79,11 +79,49 @@ public class GameManagerTests
             { m_playerUsernames[4], 1 },
             { m_playerUsernames[5], 3 }
         };
-        
+
         // Act
         // answer a question with users, and then resolve it
-        var actual = gameManager.Answer(game.Id, qs[0].Id, 
+        var actual = gameManager.Answer(game.Id, qs[0].Id,
             m_playerUsernames[0], 1);
+
+        // Assert
+        Assert.Equal(game.PointsPerQuestion, actual.awardedPoints);
+    }
+
+    [Fact]
+    public void AnswerQuestion_WithQuestionNotResolved_ReturnsNoAwardedPoints()
+    {
+        // Arrange
+        List<Question> qs = new List<Question>
+        {
+            new(1, "Question 1", m_answers),
+        };
+
+        var game = new Game(1, m_playerUsernames, qs);
+        Mock<IResolver> resolverMock = new();
+        resolverMock.Setup(resolver => resolver.Resolve(It.IsAny<Question>(), It.IsAny<Game>()))
+            .Returns(QuestionState.Unresolved);
+        var gameManager = new GameManager(m_gameRepositoryStub.Object, m_questionBucketStub.Object, resolverMock.Object);
+
+        m_gameRepositoryStub.Setup(repo => repo.GetGame(It.IsAny<string>()))
+            .Returns(game);
+
+        // 6 votes, by different users
+        qs[0].Votes = new Dictionary<string, int>
+        {
+            { m_playerUsernames[0], 1 },
+            { m_playerUsernames[1], 1 },
+            { m_playerUsernames[2], 1 },
+            { m_playerUsernames[3], 1 },
+            { m_playerUsernames[4], 1 },
+            { m_playerUsernames[5], 3 }
+        };
+
+        // Act
+        // answer a question with users, and then resolve it
+        var actual = gameManager.Answer(game.Id, qs[0].Id,
+            m_playerUsernames[0], 0);
 
         // Assert
         Assert.Equal(game.PointsPerQuestion, actual.awardedPoints);
