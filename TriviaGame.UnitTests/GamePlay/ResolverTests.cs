@@ -35,20 +35,6 @@ public class ResolverTests
         "Answer 4"
     };
 
-    IReadOnlyList<string> m_questions = new List<string>
-    {
-        "Question 2",
-        "Question 3",
-        "Question 4",
-        "Question 5",
-        "Question 6",
-        "Question 7",
-        "Question 8",
-        "Question 9",
-        "Question 10",
-        "Question 11"
-    };
-
     [Fact]
     public void ResolveAQuestion_NotEnoughVotesForRightAnswer_ReturnsPending()
     {
@@ -94,14 +80,9 @@ public class ResolverTests
         };
 
         var game = new Game(1, m_playerUsernames, qs);
-
-        // Act
-        // answer a question with users, and then resolve it
-        var totalAnswers = 11;
-        var percentageForCorrect = 0.3;
-        var questionToAnswer = qs[0];
-
+        
         // 6 votes, by different users
+        var questionToAnswer = qs[0];
         questionToAnswer.Votes = new Dictionary<string, int>
         {
             { m_playerUsernames[0], 1 },
@@ -112,6 +93,9 @@ public class ResolverTests
             { m_playerUsernames[5], 3 }
         };
 
+        
+        // Act
+        // answer a question with users, and then resolve it
         IResolver resolver = new Resolver();
         var actual = resolver.Resolve(qs[0], game);
 
