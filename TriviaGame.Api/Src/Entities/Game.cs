@@ -9,13 +9,14 @@ namespace TriviaGame.Api.entities
         {
             PointsPerQuestion = pointsPerQuestion;
             Players = playersUserNames.Select(uname => new Player(uname)).ToList();
+            Leaderboard = new Leaderboard(playersUserNames);
             Questions = questionList;
         }
 
         public string Id { get; set; }
         public int PointsPerQuestion { get; set; }
         public List<Player> Players { get; set; }
-        public List<Question> Questions { set; get; }
         public Leaderboard Leaderboard { get; set; }
+        public List<Question> Questions { set; get; }
     }
 }

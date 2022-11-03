@@ -43,9 +43,16 @@ public class Resolver : IResolver
             
             // iterate the users that have the correct answer and reward them
             var winnerUsernames = q.Votes.Where(kc => kc.Value == correctAnswer).Select(kc => kc.Key).ToHashSet();
-            var winnerPlayers = g.Players.Where(p => winnerUsernames.Contains(p.Username));
-            foreach (var winningPlayer in winnerPlayers)
+            var winningPlayers = g.Players.Where(p => winnerUsernames.Contains(p.Username));
+            foreach (var winningPlayer in winningPlayers)
             {
+                g.Leaderboard.PlayerRank.TryGetValue(winningPlayer, out var foundPlayer);
+                if (foundPlayer != null)
+                {
+                    g.Leaderboard.PlayerRank.Remove(foundPlayer);
+                    foundPlayer.AwardedPoints += g.PointsPerQuestion;
+                    g.Leaderboard.PlayerRank.Add(foundPlayer);
+                }
                 winningPlayer.AwardedPoints += g.PointsPerQuestion;
             }
             
@@ -53,7 +60,6 @@ public class Resolver : IResolver
             q.State = QuestionState.Resolved;
             return q.State;
         }
-
 
         return QuestionState.Pending;
     }

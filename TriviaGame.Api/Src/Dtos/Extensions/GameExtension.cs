@@ -27,13 +27,14 @@ public static class GameExtension
 
     public static LeaderboardResponse ToLeaderboardResponse(this Leaderboard l)
     {
-        List<RankedPlayer> rpList = new List<RankedPlayer>
+        var ranked = new List<RankedPlayer>();
+        int i = 1;
+        foreach (var player in l.PlayerRank)
         {
-            new("erez", 1, 100),
-            new("ddd", 2, 50),
-            new("eee", 3, 20)
-        };
-
-        return new LeaderboardResponse(rpList);
+            ranked.Add(new RankedPlayer(player.Username, i, player.AwardedPoints));
+            i++;
+        }
+        
+        return new LeaderboardResponse(ranked);
     }
 }
