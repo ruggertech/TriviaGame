@@ -45,15 +45,10 @@ public class Resolver : IResolver
         //         ans.Key, Count = ans.Count()
         //     };
 
-        foreach (var occurrence in groupedVotesByAnsId)
-        {
-            Console.WriteLine(occurrence.AnsId + " " + occurrence.NumVotes);
-        }
-
         var sumOfAllVotes = groupedVotesByAnsId.Sum(kc => kc.NumVotes);
         groupedVotesByAnsId.Sort();
         var maxVote = groupedVotesByAnsId[0];
-        if (maxVote.NumVotes / sumOfAllVotes > 0.75)
+        if ((double)maxVote.NumVotes / sumOfAllVotes > 0.75)
         {
             var correctAnswer = maxVote.AnsId;
 
@@ -62,7 +57,6 @@ public class Resolver : IResolver
                 .Where(kc => kc.Value == correctAnswer)
                 .Select(kc => kc.Key)
                 .ToHashSet();
-
 
             g.Players.AwardPoints(winnerUsernames, g.PointsPerQuestion);
 
