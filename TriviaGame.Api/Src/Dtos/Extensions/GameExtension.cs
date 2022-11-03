@@ -11,7 +11,7 @@ public static class GameExtension
 {
     public static GameResponse ToGameResponse(this Game g)
     {
-        return new GameResponse(g.Id, g.PointsPerQuestion, g.Players.Select(p => p.Username).ToList(), 
+        return new GameResponse(g.Id, g.PointsPerQuestion, g.Players.GetUsernames(), 
             g.Questions.Select(q => q.Text).ToList());
     }
     
@@ -25,16 +25,16 @@ public static class GameExtension
         return new QuestionResponse(q.Id, q.Text, q.PossibleAnswers);
     }
 
-    public static LeaderboardResponse ToLeaderboardResponse(this Leaderboard l)
+    public static LeaderboardResponse ToLeaderboardResponse(this Players l)
     {
         var ranked = new List<RankedPlayer>();
         int i = 1;
-        foreach (var player in l.PlayerRank)
+        foreach (var player in l.GetLeaderboard())
         {
             ranked.Add(new RankedPlayer(player.Username, i, player.AwardedPoints));
             i++;
         }
-        
+
         return new LeaderboardResponse(ranked);
     }
 }

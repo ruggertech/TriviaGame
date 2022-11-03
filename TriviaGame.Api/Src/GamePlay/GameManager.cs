@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TriviaGame.Api.entities;
 using TriviaGame.Api.Repositories;
 
@@ -40,7 +41,8 @@ public class GameManager : IGameManager
         // resolve question
         IResolver resolver = new Resolver();
         var questionState = resolver.Resolve(question, game);
-        var awardedPoints = game.Players.Find(p => { return p.Username == username; }).AwardedPoints;
+        var awardedPoints = game.Players.GetAwardedPoints(username);
+            
         return (questionState, awardedPoints);
     }
 
@@ -49,9 +51,9 @@ public class GameManager : IGameManager
         return m_gameRepository.GetGame(gameId);
     }
 
-    public Leaderboard GetLeaderBoard(string gameId)
+    public Players GetLeaderBoard(string gameId)
     {
         var game = m_gameRepository.GetGame(gameId);
-        return game.Leaderboard;
+        return game.Players;
     }
 }

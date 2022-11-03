@@ -4,12 +4,6 @@ namespace TriviaGame.Api.entities
 {
     public class Player
     {
-        public Player(Player p)
-        {
-            Username = p.Username;
-            AwardedPoints = p.AwardedPoints;
-        }
-
         public Player(string username)
         {
             Username = username;
