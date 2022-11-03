@@ -51,7 +51,7 @@ public class GameManager : IGameManager
         return m_gameRepository.GetGame(gameId);
     }
 
-    public Players GetLeaderBoard(string gameId)
+    public Leaderboard GetLeaderBoard(string gameId)
     {
         var game = m_gameRepository.GetGame(gameId);
         return game.Players;

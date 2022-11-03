@@ -3,9 +3,11 @@ using System.Linq;
 
 namespace TriviaGame.Api.entities
 {
-    public class Players
+    public class Leaderboard
     {
-        public Players(List<string> usernames)
+        private SortedSet<Player> LeaderBoard { get; set; }
+
+        public Leaderboard(List<string> usernames)
         {
             LeaderBoard = new SortedSet<Player>(new PlayerComparer());
             foreach (var username in usernames)
@@ -13,8 +15,6 @@ namespace TriviaGame.Api.entities
                 LeaderBoard.Add(new Player(username));
             }
         }
-        
-        private SortedSet<Player> LeaderBoard { get; set; }
 
         public void AwardPoints(HashSet<string> winningPlayer, int pointsPerQuestion)
         {

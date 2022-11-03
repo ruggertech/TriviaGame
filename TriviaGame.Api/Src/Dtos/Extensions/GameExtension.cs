@@ -25,7 +25,7 @@ public static class GameExtension
         return new QuestionResponse(q.Id, q.Text, q.PossibleAnswers);
     }
 
-    public static LeaderboardResponse ToLeaderboardResponse(this Players l)
+    public static LeaderboardResponse ToLeaderboardResponse(this Leaderboard l)
     {
         var ranked = new List<RankedPlayer>();
         int i = 1;
