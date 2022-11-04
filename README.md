@@ -71,6 +71,10 @@ There should also be a limit for the max player we collect an answer. If the que
 See postman collection with all relevant requests:
 https://www.getpostman.com/collections/4c89a9a5a782d1373584
 
+## Create a game
+
+This API should enable to create a new game.
+
 ## Get Question
 
 request:
@@ -103,10 +107,6 @@ Response:
 Request:
 
 - Game id
-
-## Create a game
-
-This API should enable to create a new game.
 
 # Assumptions:
 
