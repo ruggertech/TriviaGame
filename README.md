@@ -68,6 +68,9 @@ There should also be a limit for the max player we collect an answer. If the que
 
 # Application APIs:
 
+See postman collection with all relevant requests:
+https://www.getpostman.com/collections/4c89a9a5a782d1373584
+
 ## Get Question
 
 request:
