@@ -10,7 +10,7 @@ public class Resolver : IResolver
 {
     public QuestionState Resolve(Question q, Game g)
     {
-        if (q ==null)
+        if (q == null)
         {
             throw new ArgumentNullException(nameof(q), "Resolver requires a question to resolve");
         }

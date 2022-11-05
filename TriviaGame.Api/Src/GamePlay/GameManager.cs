@@ -22,6 +22,26 @@ public class GameManager : IGameManager
     public Game CreateGame(List<string> playerUserNames, int pointsPerQuestion, List<int> questionIds,
         decimal majorityVotePercentage)
     {
+        if (playerUserNames == null || playerUserNames.Count == 0)
+        {
+            throw new ArgumentNullException(nameof(playerUserNames), "playerUserNames list is empty");
+        }
+
+        if (pointsPerQuestion < 1)
+        {
+            throw new ArgumentException("pointsPerQuestion must be a positive number", nameof(pointsPerQuestion));
+        }
+
+        if (questionIds == null || questionIds.Count == 0)
+        {
+            throw new ArgumentNullException(nameof(questionIds), "questionIds list is empty");
+        }
+
+        if (majorityVotePercentage < 0 || majorityVotePercentage >= 1)
+        {
+            throw new ArgumentException("majorityVotePercentage must be number (0..1]", nameof(majorityVotePercentage));
+        }
+
         var qList = m_questionBucket.GetQuestions(questionIds);
         var newGame = new Game(Guid.NewGuid().ToString(), pointsPerQuestion, playerUserNames, qList, majorityVotePercentage);
         m_gameRepository.AddGame(newGame);

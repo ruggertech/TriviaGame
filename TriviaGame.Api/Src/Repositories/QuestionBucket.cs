@@ -28,8 +28,19 @@ public sealed class QuestionBucket : IQuestionBucket
             { "type", "multiple" }
         };
         var url = new Uri(QueryHelpers.AddQueryString(baseUrl, param)).ToString();
-        var resp =  CreateAsync(url);
-        var questionsFromTriviaDb = resp.Result;
+
+        OpentdbResponse questionsFromTriviaDb;
+        try
+        {
+            var resp =  CreateAsync(url);
+            questionsFromTriviaDb = resp.Result;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw new Exception("there was an issue fetching questions from a remote website", e);
+        }
+
         for (var i = 0; i < questionsFromTriviaDb.results.Count; i++)
         {
             var webQuestion = questionsFromTriviaDb.results[i];
@@ -61,13 +72,5 @@ public sealed class QuestionBucket : IQuestionBucket
     public List<Question> GetQuestions(List<int> listOfIds)
     {
         return listOfIds.Select(GetQuestion).ToList();
-    }
-
-    public List<Question> GetQuestions(int numOfQuestions)
-    {
-        if (numOfQuestions > NUM_OF_QUESTIONS_TO_FETCH)
-            return m_questions.GetRange(0, NUM_OF_QUESTIONS_TO_FETCH - 1);
-
-        return m_questions.GetRange(0, numOfQuestions - 1);
     }
 }

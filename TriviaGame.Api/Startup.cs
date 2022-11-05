@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using DefaultNamespace;
+using FluentValidation;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TriviaGame.Api.entities.request;
 using TriviaGame.Api.Repositories;
 
 namespace TriviaGame.Api;
@@ -21,7 +24,8 @@ public class Startup
     {
         var gameManager = new GameManager(new GameRepository(), new QuestionBucket(), new Resolver());
         services.AddSingleton<IGameManager>(gameManager);
-
+        services.AddValidatorsFromAssemblyContaining<GameCreateRequestValidator>();
+        services.AddValidatorsFromAssemblyContaining<AnswerRequestValidator>();
         services.AddControllers();
     }
 
@@ -32,8 +36,6 @@ public class Startup
         {
             app.UseDeveloperExceptionPage();
         }
-            
-            
 
         app.UseRouting();
 
