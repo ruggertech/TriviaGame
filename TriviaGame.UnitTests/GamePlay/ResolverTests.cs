@@ -44,7 +44,7 @@ public class ResolverTests
             new(1, "Question 1", m_answers),
         };
 
-        var game = new Game(1, m_playerUsernames, qs);
+        var game = new Game(Guid.NewGuid().ToString(), 1, m_playerUsernames, qs);
         var questionToAnswer = qs[0];
 
         // 6 votes, by different users
@@ -76,7 +76,7 @@ public class ResolverTests
             new(1, "Question 1", m_answers),
         };
 
-        var game = new Game(1, m_playerUsernames, qs);
+        var game = new Game(Guid.NewGuid().ToString(), 1, m_playerUsernames, qs);
         
         // 6 votes, by different users
         var questionToAnswer = qs[0];
@@ -109,7 +109,7 @@ public class ResolverTests
             new(1, "Question 1", m_answers),
         };
 
-        var game = new Game(1, m_playerUsernames, qs);
+        var game = new Game(Guid.NewGuid().ToString(), 1, m_playerUsernames, qs);
 
         // Act
         var questionToAnswer = qs[0];
@@ -153,7 +153,7 @@ public class ResolverTests
             new(1, "Question 1", m_answers),
         };
 
-        var game = new Game(1, m_playerUsernames, qs);
+        var game = new Game(Guid.NewGuid().ToString(), 1, m_playerUsernames, qs);
 
         // Act
         // answer a question with users, and then resolve it

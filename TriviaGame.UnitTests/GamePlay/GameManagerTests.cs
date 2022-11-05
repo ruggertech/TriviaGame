@@ -63,7 +63,7 @@ public class GameManagerTests
             new(1, "Question 1", m_answers),
         };
 
-        var game = new Game(1, m_playerUsernames, qs);
+        var game = new Game(Guid.NewGuid().ToString(), 1, m_playerUsernames, qs);
         var gameManager = new GameManager(m_gameRepositoryStub.Object, m_questionBucketStub.Object, new Resolver());
 
         m_gameRepositoryStub.Setup(repo => repo.GetGame(It.IsAny<string>()))
@@ -98,7 +98,7 @@ public class GameManagerTests
             new(1, "Question 1", m_answers),
         };
 
-        var game = new Game(1, m_playerUsernames, qs);
+        var game = new Game(Guid.NewGuid().ToString(), 1, m_playerUsernames, qs);
         Mock<IResolver> resolverMock = new();
         resolverMock.Setup(resolver => resolver.Resolve(It.IsAny<Question>(), It.IsAny<Game>()))
             .Returns(QuestionState.Unresolved);

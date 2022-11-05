@@ -11,7 +11,6 @@ public class GameRepository : IGameRepository
     public void AddGame(Game newGame)
     {
         Games.Add(newGame);
-        newGame.Id = Guid.NewGuid().ToString();
     }
 
     public Game GetGame(string Id)

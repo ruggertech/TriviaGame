@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TriviaGame.Api.entities;
 using TriviaGame.Api.Repositories;
@@ -21,7 +22,7 @@ public class GameManager : IGameManager
         decimal majorityVotePercentage)
     {
         var qList = m_questionBucket.GetQuestions(questionIds);
-        var newGame = new Game(pointsPerQuestion, playerUserNames, qList, majorityVotePercentage);
+        var newGame = new Game(Guid.NewGuid().ToString(), pointsPerQuestion, playerUserNames, qList, majorityVotePercentage);
         m_gameRepository.AddGame(newGame);
         return newGame;
     }

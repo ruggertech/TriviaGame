@@ -4,9 +4,10 @@ namespace TriviaGame.Api.entities
 {
     public class Game
     {
-        public Game(int pointsPerQuestion, List<string> playersUserNames, List<Question> questionList,
+        public Game(string id, int pointsPerQuestion, List<string> playersUserNames, List<Question> questionList,
             decimal majorityVotePercentage = 0.75M)
         {
+            Id = id;
             PointsPerQuestion = pointsPerQuestion;
             Players = new Leaderboard(playersUserNames);
             Questions = questionList;

@@ -10,7 +10,7 @@ public class GameRepositoryTests
     {
         // Arrange
         IGameRepository gameRepo = new GameRepository();
-        var game1 = new Game(888, new List<string> { "jack, julie, jane" },
+        var game1 = new Game(Guid.NewGuid().ToString(), 888, new List<string> { "jack, julie, jane" },
             new List<Question>
             {
                 new(1, "which is the biggest country in the world", new List<string>()
@@ -21,7 +21,8 @@ public class GameRepositoryTests
                     "China"
                 })
             });
-        var game2 = new Game(999, new List<string> { "halie, holland, hendrik" },
+
+        var game2 = new Game(Guid.NewGuid().ToString(), 999, new List<string> { "halie, holland, hendrik" },
             new List<Question>
             {
                 new(1, "what is the capital of sierra leon", new List<string>
