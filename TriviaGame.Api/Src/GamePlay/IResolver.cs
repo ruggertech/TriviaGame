@@ -1,4 +1,5 @@
 using TriviaGame.Api.entities;
+using TriviaGame.Entities;
 
 namespace TriviaGame.Api;
 

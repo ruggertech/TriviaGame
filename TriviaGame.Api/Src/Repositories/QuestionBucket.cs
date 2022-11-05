@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.WebUtilities;
 using TriviaGame.Api.entities;
 using TriviaGame.Api.Utils;
+using TriviaGame.Entities;
 
 
 namespace TriviaGame.Api.Repositories;

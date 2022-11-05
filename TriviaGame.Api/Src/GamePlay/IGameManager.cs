@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TriviaGame.Api.entities;
+using TriviaGame.Entities;
 
 namespace TriviaGame.Api;
 

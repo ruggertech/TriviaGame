@@ -4,6 +4,7 @@ using DefaultNamespace;
 using TriviaGame.Api.entities;
 using TriviaGame.Api.entities.response;
 using TriviaGame.Dtos.Response;
+using TriviaGame.Entities;
 
 namespace TriviaGame.Api.Dtos.Converters;
 

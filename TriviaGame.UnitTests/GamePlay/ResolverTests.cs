@@ -1,5 +1,6 @@
 using TriviaGame.Api;
 using TriviaGame.Api.entities;
+using TriviaGame.Entities;
 
 namespace TriviaGame.UnitTests.GamePlay;
 

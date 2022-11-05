@@ -2,6 +2,7 @@ using Moq;
 using TriviaGame.Api;
 using TriviaGame.Api.entities;
 using TriviaGame.Api.Repositories;
+using TriviaGame.Entities;
 
 namespace TriviaGame.UnitTests.GamePlay;
 

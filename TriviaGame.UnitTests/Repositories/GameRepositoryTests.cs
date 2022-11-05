@@ -1,5 +1,6 @@
 using TriviaGame.Api.entities;
 using TriviaGame.Api.Repositories;
+using TriviaGame.Entities;
 
 namespace TriviaGame.UnitTests.Repositories;
 
