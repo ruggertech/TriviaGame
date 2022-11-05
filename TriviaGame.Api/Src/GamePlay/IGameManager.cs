@@ -5,7 +5,8 @@ namespace TriviaGame.Api;
 
 public interface IGameManager
 {
-    Game CreateGame(List<string> playerUserNames, int pointsPerQuestion, List<int> questionIds);
+    Game CreateGame(List<string> playerUserNames, int pointsPerQuestion,
+        List<int> questionIds, decimal MajorityVotePercentage);
     Question GetQuestion(string gameId, string username);
 
     (QuestionState questionState, int awardedPoints) Answer(string gameId, int questionId, string username,

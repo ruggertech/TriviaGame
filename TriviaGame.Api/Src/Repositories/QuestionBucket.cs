@@ -11,7 +11,7 @@ namespace TriviaGame.Api.Repositories;
 public sealed class QuestionBucket : IQuestionBucket
 {
     private readonly List<Question> m_questions = new();
-    private const int numOfQuestionsToFetch = 10;
+    private const int numOfQuestionsToFetch = 30;
 
     public QuestionBucket()
     {

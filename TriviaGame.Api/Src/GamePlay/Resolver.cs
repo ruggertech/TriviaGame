@@ -39,7 +39,7 @@ public class Resolver : IResolver
         var sumOfAllVotes = groupedVotesByAnsId.Sum(kc => kc.NumVotes);
         groupedVotesByAnsId.Sort();
         var maxVote = groupedVotesByAnsId[0];
-        if ((double)maxVote.NumVotes / sumOfAllVotes > 0.75)
+        if ((decimal)maxVote.NumVotes / sumOfAllVotes > g.MajorityPercentage)
         {
             var correctAnswer = maxVote.AnsId;
 

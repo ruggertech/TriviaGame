@@ -73,7 +73,35 @@ https://www.getpostman.com/collections/4c89a9a5a782d1373584
 
 ## Create a game
 
-This API should enable to create a new game.
+This API should enable creating a new game.
+
+For the purpose of this exercise the questions for the game are retrieved from: 
+<l>https://opentdb.com/api.php
+(value is hardcoded and could later be either configured using apis or using environment variable
+when loading the app)
+
+Example:
+```
+curl --location --request POST 'http://localhost:2442/game' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "PointsPerQuestion": 12,
+    "PlayerUserNames": ["Calvin Malone","Brynn Norman","Yvonne Hyde","Gary Mccall","Slade O'\''Neill","Logan Blair","Hakeem Graves","William Durham","Kiona Mcintyre","Cleo Sanford","Declan Mckay","Julian Chapman"],
+    "MajorityVotePercentage": 0.7,
+    "QuestionIds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+    ]
+}'
+```
 
 ## Get Question
 

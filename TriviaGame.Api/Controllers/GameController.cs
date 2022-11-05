@@ -33,7 +33,10 @@ public class GameController : ControllerBase
     [Route("/game")]
     public GameCreatedResponse CreateGame(GameCreateRequest ar)
     {
-        var game = m_gameManager.CreateGame(ar.PlayerUserNames, ar.PointsPerQuestion, ar.QuestionIds);
+        var roundedPercentage = Math.Round((decimal)ar.MajorityVotePercentage, 2);
+        var game = m_gameManager.CreateGame(ar.PlayerUserNames, ar.PointsPerQuestion, ar.QuestionIds,
+            roundedPercentage);
+        
         return game.ToGameCreatedResponse();
     }
 

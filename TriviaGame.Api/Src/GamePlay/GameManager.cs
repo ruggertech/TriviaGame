@@ -17,10 +17,11 @@ public class GameManager : IGameManager
         m_resolver = resolver;
     }
 
-    public Game CreateGame(List<string> playerUserNames, int pointsPerQuestion, List<int> questionIds)
+    public Game CreateGame(List<string> playerUserNames, int pointsPerQuestion, List<int> questionIds,
+        decimal majorityVotePercentage)
     {
         var qList = m_questionBucket.GetQuestions(questionIds);
-        var newGame = new Game(pointsPerQuestion, playerUserNames, qList);
+        var newGame = new Game(pointsPerQuestion, playerUserNames, qList, majorityVotePercentage);
         m_gameRepository.AddGame(newGame);
         return newGame;
     }
@@ -42,7 +43,7 @@ public class GameManager : IGameManager
         // resolve question
         var questionState = m_resolver.Resolve(question, game);
         var awardedPoints = game.Players.GetAwardedPoints(username);
-            
+
         return (questionState, awardedPoints);
     }
 
