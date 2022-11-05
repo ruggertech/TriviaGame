@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.WebUtilities;
-using TriviaGame.Api.entities;
+using TriviaGame.Api.Dtos.Response;
 using TriviaGame.Api.Utils;
 using TriviaGame.Entities;
 
@@ -12,6 +13,7 @@ namespace TriviaGame.Api.Repositories;
 public sealed class QuestionBucket : IQuestionBucket
 {
     private readonly List<Question> m_questions = new();
+
     // TODO: move numOfQuestionsToFetch to configuration
     private const int NUM_OF_QUESTIONS_TO_FETCH = 30;
 
@@ -26,7 +28,8 @@ public sealed class QuestionBucket : IQuestionBucket
             { "type", "multiple" }
         };
         var url = new Uri(QueryHelpers.AddQueryString(baseUrl, param)).ToString();
-        var questionsFromTriviaDb = HttpUtils.GetAsync(url).Result;
+        var resp =  CreateAsync(url);
+        var questionsFromTriviaDb = resp.Result;
         for (var i = 0; i < questionsFromTriviaDb.results.Count; i++)
         {
             var webQuestion = questionsFromTriviaDb.results[i];
@@ -42,6 +45,11 @@ public sealed class QuestionBucket : IQuestionBucket
 
             m_questions.Add(newQuestion);
         }
+    }
+
+    private static async Task<OpentdbResponse> CreateAsync(string url)
+    {
+        return await HttpUtils.GetAsync(url);
     }
 
     public Question GetQuestion(int id)
