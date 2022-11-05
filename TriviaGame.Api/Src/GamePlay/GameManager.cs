@@ -30,7 +30,8 @@ public class GameManager : IGameManager
     public Question GetQuestion(string gameId, string username)
     {
         var game = m_gameRepository.GetGame(gameId);
-        var question = game.Questions.Find(q => q.State != QuestionState.Unresolved && !q.Votes.ContainsKey(username));
+        var question = game.Questions.Find(q => 
+            q.State != QuestionState.Unresolved && !q.DidUserVote(username));
         return question;
     }
 

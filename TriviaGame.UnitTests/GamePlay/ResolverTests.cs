@@ -48,7 +48,7 @@ public class ResolverTests
         var questionToAnswer = qs[0];
 
         // 6 votes, by different users
-        questionToAnswer.Votes = new Dictionary<string, int>
+        questionToAnswer.SetVotes(new Dictionary<string, int>
         {
             { m_playerUsernames[0], 1 },
             { m_playerUsernames[1], 1 },
@@ -56,7 +56,7 @@ public class ResolverTests
             { m_playerUsernames[3], 2 },
             { m_playerUsernames[4], 2 },
             { m_playerUsernames[5], 3 }
-        };
+        });
 
         // Act
         // answer a question with users, and then resolve it
@@ -77,10 +77,10 @@ public class ResolverTests
         };
 
         var game = new Game(Guid.NewGuid().ToString(), 1, m_playerUsernames, qs);
-        
+
         // 6 votes, by different users
         var questionToAnswer = qs[0];
-        questionToAnswer.Votes = new Dictionary<string, int>
+        questionToAnswer.SetVotes(new Dictionary<string, int>
         {
             { m_playerUsernames[0], 1 },
             { m_playerUsernames[1], 1 },
@@ -88,9 +88,9 @@ public class ResolverTests
             { m_playerUsernames[3], 1 },
             { m_playerUsernames[4], 1 },
             { m_playerUsernames[5], 3 }
-        };
+        });
 
-        
+
         // Act
         // answer a question with users, and then resolve it
         IResolver resolver = new Resolver();
@@ -115,7 +115,7 @@ public class ResolverTests
         var questionToAnswer = qs[0];
 
         // 6 votes, by different users
-        questionToAnswer.Votes = new Dictionary<string, int>
+        questionToAnswer.SetVotes(new Dictionary<string, int>
         {
             { m_playerUsernames[0], 1 },
             { m_playerUsernames[1], 1 },
@@ -135,7 +135,7 @@ public class ResolverTests
             { m_playerUsernames[15], 3 },
             { m_playerUsernames[16], 3 },
             { m_playerUsernames[17], 3 }
-        };
+        });
 
         IResolver resolver = new Resolver();
         var actual = resolver.Resolve(qs[0], game);
@@ -160,7 +160,7 @@ public class ResolverTests
         var questionToAnswer = qs[0];
 
         // 6 votes, by different users
-        questionToAnswer.Votes = new Dictionary<string, int>
+        questionToAnswer.SetVotes(new Dictionary<string, int>
         {
             { m_playerUsernames[0], 1 },
             { m_playerUsernames[1], 1 },
@@ -173,7 +173,7 @@ public class ResolverTests
             { m_playerUsernames[8], 1 },
             { m_playerUsernames[9], 1 },
             { m_playerUsernames[10], 1 }
-        };
+        });
 
         IResolver resolver = new Resolver();
         var actual = resolver.Resolve(qs[0], game);

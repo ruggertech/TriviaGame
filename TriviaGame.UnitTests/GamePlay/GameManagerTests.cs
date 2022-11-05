@@ -70,7 +70,7 @@ public class GameManagerTests
             .Returns(game);
 
         // 6 votes, by different users
-        qs[0].Votes = new Dictionary<string, int>
+        qs[0].SetVotes(new Dictionary<string, int>
         {
             { m_playerUsernames[0], 1 },
             { m_playerUsernames[1], 1 },
@@ -78,7 +78,7 @@ public class GameManagerTests
             { m_playerUsernames[3], 1 },
             { m_playerUsernames[4], 1 },
             { m_playerUsernames[5], 3 }
-        };
+        });
 
         // Act
         // answer a question with users, and then resolve it
@@ -102,13 +102,14 @@ public class GameManagerTests
         Mock<IResolver> resolverMock = new();
         resolverMock.Setup(resolver => resolver.Resolve(It.IsAny<Question>(), It.IsAny<Game>()))
             .Returns(QuestionState.Unresolved);
-        var gameManager = new GameManager(m_gameRepositoryStub.Object, m_questionBucketStub.Object, resolverMock.Object);
+        var gameManager =
+            new GameManager(m_gameRepositoryStub.Object, m_questionBucketStub.Object, resolverMock.Object);
 
         m_gameRepositoryStub.Setup(repo => repo.GetGame(It.IsAny<string>()))
             .Returns(game);
 
         // 6 votes, by different users
-        qs[0].Votes = new Dictionary<string, int>
+        qs[0].SetVotes(new Dictionary<string, int>
         {
             { m_playerUsernames[0], 1 },
             { m_playerUsernames[1], 1 },
@@ -116,7 +117,7 @@ public class GameManagerTests
             { m_playerUsernames[3], 1 },
             { m_playerUsernames[4], 1 },
             { m_playerUsernames[5], 3 }
-        };
+        });
 
         // Act
         // answer a question with users, and then resolve it
