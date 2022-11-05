@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using FluentAssertions;
 using Moq;
 using TriviaGame.Api;
 using TriviaGame.Api.entities;
@@ -88,7 +89,7 @@ public class GameManagerTests
             m_playerUsernames[0], 1);
 
         // Assert
-        Assert.Equal(game.PointsPerQuestion, actual.awardedPoints);
+        actual.awardedPoints.Should().Be(game.PointsPerQuestion);
     }
 
     [Fact]
@@ -127,6 +128,6 @@ public class GameManagerTests
             m_playerUsernames[0], 0);
 
         // Assert
-        Assert.Equal(0, actual.awardedPoints);
+        actual.awardedPoints.Should().Be(0);
     }
 }

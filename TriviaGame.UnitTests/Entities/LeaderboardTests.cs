@@ -1,3 +1,4 @@
+using FluentAssertions;
 using TriviaGame.Api.entities;
 
 namespace TriviaGame.UnitTests.Entities;
@@ -58,9 +59,9 @@ public class LeaderboardTests
         var board = lb.ToList();
         
         // Assert
-        Assert.Equal(100, board[0].AwardedPoints );
-        Assert.Equal(80, board[3].AwardedPoints);
-        Assert.Equal(60, board[6].AwardedPoints);
+        board[0].AwardedPoints.Should().Be(100);
+        board[3].AwardedPoints.Should().Be(80);
+        board[6].AwardedPoints.Should().Be(60);
     }
     
     [Fact]
@@ -80,7 +81,7 @@ public class LeaderboardTests
         var awardedPoints = lb.GetAwardedPoints(m_playerUsernames[0]);
 
         // Assert
-        Assert.Equal(100, awardedPoints);
+        awardedPoints.Should().Be(100);
     }
     
     [Fact]
@@ -95,6 +96,6 @@ public class LeaderboardTests
         // Assert
         var expected = new List<string>(m_playerUsernames.ToArray());
         expected.Sort();
-        Assert.Equal(expected, usernames);
+        usernames.Should().Equal(expected);
     }
 }

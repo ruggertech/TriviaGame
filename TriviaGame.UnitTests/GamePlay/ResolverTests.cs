@@ -2,6 +2,7 @@ using System.Collections.Concurrent;
 using TriviaGame.Api;
 using TriviaGame.Api.entities;
 using TriviaGame.Entities;
+using FluentAssertions;
 
 namespace TriviaGame.UnitTests.GamePlay;
 
@@ -69,7 +70,7 @@ public class ResolverTests
         var actual = resolver.Resolve(qs[0], game);
 
         // Assert
-        Assert.Equal(QuestionState.Pending, actual);
+        actual.Should().Be(QuestionState.Pending);
     }
 
     [Fact]
@@ -102,7 +103,7 @@ public class ResolverTests
         var actual = resolver.Resolve(qs[0], game);
 
         // Assert
-        Assert.Equal(QuestionState.Resolved, actual);
+        actual.Should().Be(QuestionState.Resolved);
     }
 
     [Fact]
@@ -146,7 +147,7 @@ public class ResolverTests
         var actual = resolver.Resolve(qs[0], game);
 
         // Assert
-        Assert.Equal(QuestionState.Unresolved, actual);
+        actual.Should().Be(QuestionState.Unresolved);
     }
 
     [Fact]
@@ -184,6 +185,6 @@ public class ResolverTests
         var actual = resolver.Resolve(qs[0], game);
 
         // Assert
-        Assert.Equal(QuestionState.Resolved, actual);
+        actual.Should().Be(QuestionState.Resolved);
     }
 }

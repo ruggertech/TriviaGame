@@ -1,3 +1,4 @@
+using FluentAssertions;
 using TriviaGame.Api.entities;
 using TriviaGame.Api.Repositories;
 using TriviaGame.Entities;
@@ -42,7 +43,7 @@ public class GameRepositoryTests
         var game4 = gameRepo.GetGame(game2.Id);
 
         // Assert
-        Assert.Equal(game1, game3);        
-        Assert.Equal(game2, game4);        
+        game1.Should().Be(game3);
+        game2.Should().Be(game4);
     }
 }
