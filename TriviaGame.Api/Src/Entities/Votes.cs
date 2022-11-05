@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using Username = System.String;
@@ -7,7 +8,7 @@ namespace TriviaGame.Api.entities;
 
 public class Votes
 {
-    private Dictionary<Username, AnswerId> m_votes;
+    private ConcurrentDictionary<Username, AnswerId> m_votes;
 
     public int Count => m_votes.Count;
 
@@ -20,7 +21,7 @@ public class Votes
         .Select(kc => kc.Key)
         .ToHashSet();
 
-    public void SetVotes(Dictionary<string, int> dict) => m_votes = dict;
+    public void SetVotes(ConcurrentDictionary<string, int> dict) => m_votes = dict;
 
     public void SetSingleVote(Username username, AnswerId answerId)
     {

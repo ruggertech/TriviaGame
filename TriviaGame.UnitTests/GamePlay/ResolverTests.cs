@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using TriviaGame.Api;
 using TriviaGame.Api.entities;
 using TriviaGame.Entities;
@@ -6,7 +7,7 @@ namespace TriviaGame.UnitTests.GamePlay;
 
 public class ResolverTests
 {
-    private List<string> m_playerUsernames = new()
+    private static readonly List<string> s_playerUsernames = new()
     {
         "Calvin Malone",
         "Brynn Norman",
@@ -45,19 +46,22 @@ public class ResolverTests
             new(1, "Question 1", m_answers),
         };
 
-        var game = new Game(Guid.NewGuid().ToString(), 1, m_playerUsernames, qs);
+        var game = new Game(Guid.NewGuid().ToString(), 1, s_playerUsernames, qs);
         var questionToAnswer = qs[0];
 
         // 6 votes, by different users
-        questionToAnswer.Votes.SetVotes(new Dictionary<string, int>
-        {
-            { m_playerUsernames[0], 1 },
-            { m_playerUsernames[1], 1 },
-            { m_playerUsernames[2], 1 },
-            { m_playerUsernames[3], 2 },
-            { m_playerUsernames[4], 2 },
-            { m_playerUsernames[5], 3 }
-        });
+        ConcurrentDictionary<string, int> votesDictionary =
+            new ConcurrentDictionary<string, int>(
+                new Dictionary<string, int>
+                {
+                    { s_playerUsernames[0], 1 },
+                    { s_playerUsernames[1], 1 },
+                    { s_playerUsernames[2], 1 },
+                    { s_playerUsernames[3], 2 },
+                    { s_playerUsernames[4], 2 },
+                    { s_playerUsernames[5], 3 }
+                });
+        questionToAnswer.Votes.SetVotes(votesDictionary);
 
         // Act
         // answer a question with users, and then resolve it
@@ -77,19 +81,19 @@ public class ResolverTests
             new(1, "Question 1", m_answers),
         };
 
-        var game = new Game(Guid.NewGuid().ToString(), 1, m_playerUsernames, qs);
+        var game = new Game(Guid.NewGuid().ToString(), 1, s_playerUsernames, qs);
 
         // 6 votes, by different users
         var questionToAnswer = qs[0];
-        questionToAnswer.Votes.SetVotes(new Dictionary<string, int>
+        questionToAnswer.Votes.SetVotes(new ConcurrentDictionary<string, int>(new Dictionary<string, int>
         {
-            { m_playerUsernames[0], 1 },
-            { m_playerUsernames[1], 1 },
-            { m_playerUsernames[2], 1 },
-            { m_playerUsernames[3], 1 },
-            { m_playerUsernames[4], 1 },
-            { m_playerUsernames[5], 3 }
-        });
+            { s_playerUsernames[0], 1 },
+            { s_playerUsernames[1], 1 },
+            { s_playerUsernames[2], 1 },
+            { s_playerUsernames[3], 1 },
+            { s_playerUsernames[4], 1 },
+            { s_playerUsernames[5], 3 }
+        }));
 
 
         // Act
@@ -110,33 +114,33 @@ public class ResolverTests
             new(1, "Question 1", m_answers),
         };
 
-        var game = new Game(Guid.NewGuid().ToString(), 1, m_playerUsernames, qs);
+        var game = new Game(Guid.NewGuid().ToString(), 1, s_playerUsernames, qs);
 
         // Act
         var questionToAnswer = qs[0];
 
         // 6 votes, by different users
-        questionToAnswer.Votes.SetVotes(new Dictionary<string, int>
+        questionToAnswer.Votes.SetVotes(new ConcurrentDictionary<string, int>(new Dictionary<string, int>
         {
-            { m_playerUsernames[0], 1 },
-            { m_playerUsernames[1], 1 },
-            { m_playerUsernames[2], 1 },
-            { m_playerUsernames[3], 1 },
-            { m_playerUsernames[4], 2 },
-            { m_playerUsernames[5], 2 },
-            { m_playerUsernames[6], 2 },
-            { m_playerUsernames[7], 2 },
-            { m_playerUsernames[8], 3 },
-            { m_playerUsernames[9], 3 },
-            { m_playerUsernames[10], 3 },
-            { m_playerUsernames[11], 3 },
-            { m_playerUsernames[12], 3 },
-            { m_playerUsernames[13], 3 },
-            { m_playerUsernames[14], 3 },
-            { m_playerUsernames[15], 3 },
-            { m_playerUsernames[16], 3 },
-            { m_playerUsernames[17], 3 }
-        });
+            { s_playerUsernames[0], 1 },
+            { s_playerUsernames[1], 1 },
+            { s_playerUsernames[2], 1 },
+            { s_playerUsernames[3], 1 },
+            { s_playerUsernames[4], 2 },
+            { s_playerUsernames[5], 2 },
+            { s_playerUsernames[6], 2 },
+            { s_playerUsernames[7], 2 },
+            { s_playerUsernames[8], 3 },
+            { s_playerUsernames[9], 3 },
+            { s_playerUsernames[10], 3 },
+            { s_playerUsernames[11], 3 },
+            { s_playerUsernames[12], 3 },
+            { s_playerUsernames[13], 3 },
+            { s_playerUsernames[14], 3 },
+            { s_playerUsernames[15], 3 },
+            { s_playerUsernames[16], 3 },
+            { s_playerUsernames[17], 3 }
+        }));
 
         IResolver resolver = new Resolver();
         var actual = resolver.Resolve(qs[0], game);
@@ -154,27 +158,27 @@ public class ResolverTests
             new(1, "Question 1", m_answers),
         };
 
-        var game = new Game(Guid.NewGuid().ToString(), 1, m_playerUsernames, qs);
+        var game = new Game(Guid.NewGuid().ToString(), 1, s_playerUsernames, qs);
 
         // Act
         // answer a question with users, and then resolve it
         var questionToAnswer = qs[0];
 
         // 6 votes, by different users
-        questionToAnswer.Votes.SetVotes(new Dictionary<string, int>
+        questionToAnswer.Votes.SetVotes(new ConcurrentDictionary<string, int>(new Dictionary<string, int>
         {
-            { m_playerUsernames[0], 1 },
-            { m_playerUsernames[1], 1 },
-            { m_playerUsernames[2], 1 },
-            { m_playerUsernames[3], 2 },
-            { m_playerUsernames[4], 1 },
-            { m_playerUsernames[5], 1 },
-            { m_playerUsernames[6], 1 },
-            { m_playerUsernames[7], 2 },
-            { m_playerUsernames[8], 1 },
-            { m_playerUsernames[9], 1 },
-            { m_playerUsernames[10], 1 }
-        });
+            { s_playerUsernames[0], 1 },
+            { s_playerUsernames[1], 1 },
+            { s_playerUsernames[2], 1 },
+            { s_playerUsernames[3], 2 },
+            { s_playerUsernames[4], 1 },
+            { s_playerUsernames[5], 1 },
+            { s_playerUsernames[6], 1 },
+            { s_playerUsernames[7], 2 },
+            { s_playerUsernames[8], 1 },
+            { s_playerUsernames[9], 1 },
+            { s_playerUsernames[10], 1 }
+        }));
 
         IResolver resolver = new Resolver();
         var actual = resolver.Resolve(qs[0], game);

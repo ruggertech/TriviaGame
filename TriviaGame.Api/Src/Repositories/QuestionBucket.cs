@@ -20,7 +20,7 @@ public sealed class QuestionBucket : IQuestionBucket
         //var url = @"https://opentdb.com/api.php?amount=@{numOfQuestionsToFetch}&type=multiple";
         // TODO: move to configuration
         const string baseUrl = "https://opentdb.com/api.php";
-        var param = new Dictionary<string, string>()
+        var param = new Dictionary<string, string>
         {
             { "amount", NUM_OF_QUESTIONS_TO_FETCH.ToString() },
             { "type", "multiple" }

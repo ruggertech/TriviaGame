@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using Moq;
 using TriviaGame.Api;
 using TriviaGame.Api.entities;
@@ -71,7 +72,7 @@ public class GameManagerTests
             .Returns(game);
 
         // 6 votes, by different users
-        qs[0].Votes.SetVotes(new Dictionary<string, int>
+        qs[0].Votes.SetVotes(new ConcurrentDictionary<string, int>(new Dictionary<string, int>()
         {
             { m_playerUsernames[0], 1 },
             { m_playerUsernames[1], 1 },
@@ -79,7 +80,7 @@ public class GameManagerTests
             { m_playerUsernames[3], 1 },
             { m_playerUsernames[4], 1 },
             { m_playerUsernames[5], 3 }
-        });
+        }));
 
         // Act
         // answer a question with users, and then resolve it
@@ -110,7 +111,7 @@ public class GameManagerTests
             .Returns(game);
 
         // 6 votes, by different users
-        qs[0].Votes.SetVotes(new Dictionary<string, int>
+        qs[0].Votes.SetVotes(new ConcurrentDictionary<string, int>(new Dictionary<string, int>
         {
             { m_playerUsernames[0], 1 },
             { m_playerUsernames[1], 1 },
@@ -118,7 +119,7 @@ public class GameManagerTests
             { m_playerUsernames[3], 1 },
             { m_playerUsernames[4], 1 },
             { m_playerUsernames[5], 3 }
-        });
+        }));
 
         // Act
         // answer a question with users, and then resolve it
