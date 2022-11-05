@@ -4,7 +4,7 @@ namespace TriviaGame.UnitTests.Entities;
 
 public class LeaderboardTests
 {
-    private List<string> m_playerUsernames = new()
+    private readonly List<string> m_playerUsernames = new()
     {
         "Calvin Malone",
         "Brynn Norman",

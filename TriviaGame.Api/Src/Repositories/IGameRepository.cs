@@ -5,5 +5,5 @@ namespace TriviaGame.Api.Repositories;
 public interface IGameRepository
 { 
     void AddGame(Game newGame);
-    Game GetGame(string Id);
+    Game GetGame(string id);
 }

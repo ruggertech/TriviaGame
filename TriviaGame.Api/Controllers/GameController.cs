@@ -42,9 +42,9 @@ public class GameController : ControllerBase
 
     [HttpGet]
     [Route("/question")]
-    public QuestionResponse GetQuestion(string Username, string GameId)
+    public QuestionResponse GetQuestion(string username, string gameId)
     {
-        var res = m_gameManager.GetQuestion(GameId, Username);
+        var res = m_gameManager.GetQuestion(gameId, username);
         var resp = res.ToQuestionResponse();
         return resp;
     }
@@ -63,9 +63,9 @@ public class GameController : ControllerBase
 
     [HttpGet]
     [Route("/leaderboard")]
-    public LeaderboardResponse GetLeaderboard(string GameId)
+    public LeaderboardResponse GetLeaderboard(string gameId)
     {
-        var res = m_gameManager.GetLeaderBoard(GameId);
+        var res = m_gameManager.GetLeaderBoard(gameId);
         return res.ToLeaderboardResponse();
     }
 

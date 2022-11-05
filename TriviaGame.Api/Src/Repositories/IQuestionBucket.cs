@@ -6,6 +6,6 @@ namespace TriviaGame.Api.Repositories;
 
 public interface IQuestionBucket
 {
-    Question GetQuestion(int Id);
-    List<Question> GetQuestions(List<int> Id);
+    Question GetQuestion(int id);
+    List<Question> GetQuestions(List<int> id);
 }

@@ -2,12 +2,14 @@ using System.Collections.Generic;
 
 namespace TriviaGame.Api.Dtos.Response;
 
+// ReSharper disable once InconsistentNaming
 public class OpentdbResponse
 {
     public int response_code { get; set; }
     public List<TriviaQuestion> results { get; set; }
 }
 
+// ReSharper disable once InconsistentNaming
 public class TriviaQuestion
 {
     public string category { get; set; }

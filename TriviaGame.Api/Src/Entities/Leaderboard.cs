@@ -14,7 +14,7 @@ namespace TriviaGame.Api.entities
             {
                 throw new ArgumentNullException(nameof(usernames), "leaderboard requires list of usernames");
             }
-            
+
             LeaderBoard = new SortedSet<Player>(new PlayerComparer());
             foreach (var username in usernames)
             {
@@ -56,7 +56,7 @@ namespace TriviaGame.Api.entities
             return LeaderBoard.First(p => p.Username == username).AwardedPoints;
         }
     }
-    
+
     public class PlayerComparer : IComparer<Player>
     {
         public int Compare(Player x, Player y)
@@ -82,7 +82,7 @@ namespace TriviaGame.Api.entities
             }
 
             //return x.AwardedPoints - y.AwardedPoints;
-            return y.AwardedPoints - x.AwardedPoints;  // sort in descending order
+            return y.AwardedPoints - x.AwardedPoints; // sort in descending order
         }
     }
 }

@@ -13,7 +13,7 @@ public sealed class QuestionBucket : IQuestionBucket
 {
     private readonly List<Question> m_questions = new();
     // TODO: move numOfQuestionsToFetch to configuration
-    private const int numOfQuestionsToFetch = 30;
+    private const int NUM_OF_QUESTIONS_TO_FETCH = 30;
 
     public QuestionBucket()
     {
@@ -22,14 +22,14 @@ public sealed class QuestionBucket : IQuestionBucket
         const string baseUrl = "https://opentdb.com/api.php";
         var param = new Dictionary<string, string>()
         {
-            { "amount", numOfQuestionsToFetch.ToString() },
-            { "type", "multiple" },
+            { "amount", NUM_OF_QUESTIONS_TO_FETCH.ToString() },
+            { "type", "multiple" }
         };
         var url = new Uri(QueryHelpers.AddQueryString(baseUrl, param)).ToString();
-        var QuestionsFromTriviaDb = HttpUtils.GetAsync(url).Result;
-        for (var i = 0; i < QuestionsFromTriviaDb.results.Count; i++)
+        var questionsFromTriviaDb = HttpUtils.GetAsync(url).Result;
+        for (var i = 0; i < questionsFromTriviaDb.results.Count; i++)
         {
-            var webQuestion = QuestionsFromTriviaDb.results[i];
+            var webQuestion = questionsFromTriviaDb.results[i];
             List<string> answersText = new()
             {
                 // add possible answers
@@ -44,10 +44,10 @@ public sealed class QuestionBucket : IQuestionBucket
         }
     }
 
-    public Question GetQuestion(int Id)
+    public Question GetQuestion(int id)
     {
         // a user will not get the same question again if he has already answered it
-        return m_questions.Find(q => q.Id == Id);
+        return m_questions.Find(q => q.Id == id);
     }
 
     public List<Question> GetQuestions(List<int> listOfIds)
@@ -57,8 +57,8 @@ public sealed class QuestionBucket : IQuestionBucket
 
     public List<Question> GetQuestions(int numOfQuestions)
     {
-        if (numOfQuestions > numOfQuestionsToFetch)
-            return m_questions.GetRange(0, numOfQuestionsToFetch - 1);
+        if (numOfQuestions > NUM_OF_QUESTIONS_TO_FETCH)
+            return m_questions.GetRange(0, NUM_OF_QUESTIONS_TO_FETCH - 1);
 
         return m_questions.GetRange(0, numOfQuestions - 1);
     }

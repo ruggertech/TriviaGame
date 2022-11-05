@@ -14,7 +14,7 @@ namespace TriviaGame.Api.entities
             {
                 throw new ArgumentNullException(nameof(playersUserNames), "a game requires players on initiation");
             }
-            
+
             if (questionList == null)
             {
                 throw new ArgumentNullException(nameof(questionList), "a game requires list of players");
