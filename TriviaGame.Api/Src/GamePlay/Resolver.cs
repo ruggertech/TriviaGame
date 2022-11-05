@@ -9,8 +9,15 @@ public class Resolver : IResolver
 {
     public QuestionState Resolve(Question q, Game g)
     {
-        // a q was answered, if it is the right one, immediately go over all the players who chose
-        // this answer and give them points
+        if (q ==null)
+        {
+            throw new ArgumentNullException(nameof(q), "Resolver requires a question to resolve");
+        }
+
+        if (g == null)
+        {
+            throw new ArgumentNullException(nameof(g), "Resolver requires a game to resolve its question");
+        }
 
         // iterate the votes, decide what is the correct answer, if the state changes following that, give awarded points
         // the question was previously resolved and points were awarded, no need to do anything

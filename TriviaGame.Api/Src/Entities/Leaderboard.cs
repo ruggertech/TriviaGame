@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,6 +10,11 @@ namespace TriviaGame.Api.entities
 
         public Leaderboard(List<string> usernames)
         {
+            if (usernames == null)
+            {
+                throw new ArgumentNullException(nameof(usernames), "leaderboard requires list of usernames");
+            }
+            
             LeaderBoard = new SortedSet<Player>(new PlayerComparer());
             foreach (var username in usernames)
             {

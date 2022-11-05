@@ -13,9 +13,9 @@ public class GameManager : IGameManager
 
     public GameManager(IGameRepository gameRepository, IQuestionBucket questionBucket, IResolver resolver)
     {
-        m_gameRepository = gameRepository;
-        m_questionBucket = questionBucket;
-        m_resolver = resolver;
+        m_gameRepository = gameRepository ?? throw new ArgumentNullException(nameof(gameRepository), "game manager requires a gameRepository");
+        m_questionBucket = questionBucket ?? throw new ArgumentNullException(nameof(questionBucket), "game manager requires a questionBucket");
+        m_resolver = resolver ?? throw new ArgumentNullException(nameof(resolver), "game manager requires a resolver");
     }
 
     public Game CreateGame(List<string> playerUserNames, int pointsPerQuestion, List<int> questionIds,

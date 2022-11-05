@@ -11,11 +11,13 @@ namespace TriviaGame.Api.Repositories;
 public sealed class QuestionBucket : IQuestionBucket
 {
     private readonly List<Question> m_questions = new();
+    // TODO: move numOfQuestionsToFetch to configuration
     private const int numOfQuestionsToFetch = 30;
 
     public QuestionBucket()
     {
         //var url = @"https://opentdb.com/api.php?amount=@{numOfQuestionsToFetch}&type=multiple";
+        // TODO: move to configuration
         const string baseUrl = "https://opentdb.com/api.php";
         var param = new Dictionary<string, string>()
         {

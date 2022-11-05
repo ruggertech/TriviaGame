@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TriviaGame.Api.Utils;
 using Username = System.String;
@@ -11,6 +12,11 @@ namespace TriviaGame.Api.entities
 
         public Question(int id, string text, IReadOnlyList<string> answers)
         {
+            if (answers == null)
+            {
+                throw new ArgumentNullException(nameof(answers), "Question must be initialized with a list of answers");
+            }
+
             Id = id;
             Text = text;
             PossibleAnswers = new();
