@@ -31,7 +31,7 @@ public class GameManager : IGameManager
     {
         var game = m_gameRepository.GetGame(gameId);
         var question = game.Questions.Find(q => 
-            q.State != QuestionState.Unresolved && !q.DidUserVote(username));
+            q.State != QuestionState.Unresolved && !q.Votes.DidUserVote(username));
         return question;
     }
 

@@ -48,7 +48,7 @@ public class ResolverTests
         var questionToAnswer = qs[0];
 
         // 6 votes, by different users
-        questionToAnswer.SetVotes(new Dictionary<string, int>
+        questionToAnswer.Votes.SetVotes(new Dictionary<string, int>
         {
             { m_playerUsernames[0], 1 },
             { m_playerUsernames[1], 1 },
@@ -80,7 +80,7 @@ public class ResolverTests
 
         // 6 votes, by different users
         var questionToAnswer = qs[0];
-        questionToAnswer.SetVotes(new Dictionary<string, int>
+        questionToAnswer.Votes.SetVotes(new Dictionary<string, int>
         {
             { m_playerUsernames[0], 1 },
             { m_playerUsernames[1], 1 },
@@ -115,7 +115,7 @@ public class ResolverTests
         var questionToAnswer = qs[0];
 
         // 6 votes, by different users
-        questionToAnswer.SetVotes(new Dictionary<string, int>
+        questionToAnswer.Votes.SetVotes(new Dictionary<string, int>
         {
             { m_playerUsernames[0], 1 },
             { m_playerUsernames[1], 1 },
@@ -160,7 +160,7 @@ public class ResolverTests
         var questionToAnswer = qs[0];
 
         // 6 votes, by different users
-        questionToAnswer.SetVotes(new Dictionary<string, int>
+        questionToAnswer.Votes.SetVotes(new Dictionary<string, int>
         {
             { m_playerUsernames[0], 1 },
             { m_playerUsernames[1], 1 },

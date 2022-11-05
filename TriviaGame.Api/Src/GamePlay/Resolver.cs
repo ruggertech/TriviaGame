@@ -21,7 +21,7 @@ public class Resolver : IResolver
 
         // iterate the votes, decide what is the correct answer, if the state changes following that, give awarded points
         // the question was previously resolved and points were awarded, no need to do anything
-        if (q.State is QuestionState.Unresolved or QuestionState.Resolved || q.CountVotes < 6)
+        if (q.State is QuestionState.Unresolved or QuestionState.Resolved || q.Votes.Count < 6)
         {
             // the question was previously resolved/unresolved and points were awarded, no need to do anything
             return q.State;
@@ -29,13 +29,13 @@ public class Resolver : IResolver
 
         // if the question wasn't resolved with 11 users it will be marked unresolved.
         // meaning, from the 12th user this applies
-        if (q.CountVotes > 11)
+        if (q.Votes.Count > 11)
         {
             q.State = QuestionState.Unresolved;
             return q.State;
         }
 
-        IEnumerable<IGrouping<int, int>> groups = q.VotesGroupedByAnsId;
+        IEnumerable<IGrouping<int, int>> groups = q.Votes.ToGroupedByAnsId;
         List<AnsVotes> groupedVotesByAnsId = new();
         foreach (var grp in groups)
         {
@@ -51,7 +51,7 @@ public class Resolver : IResolver
             var correctAnswer = maxVote.AnsId;
 
             // winners are those who voted for the correct answer
-            HashSet<string> winnerUsernames = q.GetPlayerNames(correctAnswer);
+            HashSet<string> winnerUsernames = q.Votes.GetPlayerNames(correctAnswer);
             g.Players.AwardPoints(winnerUsernames, g.PointsPerQuestion);
 
             // resolve the question

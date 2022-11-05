@@ -70,7 +70,7 @@ public class GameManagerTests
             .Returns(game);
 
         // 6 votes, by different users
-        qs[0].SetVotes(new Dictionary<string, int>
+        qs[0].Votes.SetVotes(new Dictionary<string, int>
         {
             { m_playerUsernames[0], 1 },
             { m_playerUsernames[1], 1 },
@@ -109,7 +109,7 @@ public class GameManagerTests
             .Returns(game);
 
         // 6 votes, by different users
-        qs[0].SetVotes(new Dictionary<string, int>
+        qs[0].Votes.SetVotes(new Dictionary<string, int>
         {
             { m_playerUsernames[0], 1 },
             { m_playerUsernames[1], 1 },
