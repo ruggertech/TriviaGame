@@ -8,7 +8,7 @@ namespace TriviaGame.Api.entities;
 
 public class Votes
 {
-    private ConcurrentDictionary<Username, AnswerId> m_votes;
+    private ConcurrentDictionary<Username, AnswerId> m_votes  = new();
 
     public int Count => m_votes.Count;
 
